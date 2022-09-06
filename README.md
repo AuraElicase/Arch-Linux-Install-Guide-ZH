@@ -347,7 +347,7 @@ systemctl enable NetworkManager
 ```
 
 <details>
-<summary>啥是微码🤔</summary>
+<summary>啥是微码 🤔</summary>
 <br />
 
 > 处理器制造商会发布对处理器微码的稳定性和安全性更新。这些更新提供了对系统稳定性至关重要的错误修复。如果没有这些更新，则可能会遇到不明原因的崩溃或难以跟踪的意外停机。
@@ -604,13 +604,13 @@ paru -S alacritty-git
 
 ---
 
-### RANGER
+### Ranger
 
 Ranger 是一个由 Python 写成的文件管理器
 
 > 安装 Ranger
 ```
-paru -S ranger -git
+paru -S ranger-git
 ```
 
 > 配置 Ranger
@@ -763,6 +763,56 @@ Classic User Interface      [ Fcitx5 UI 设置 ]
 
 ----
 
+### Sublime-Text 4
+
+---
+
+> 安装
+```
+paru -S sublime-text
+```
+
+> 激活
+```
+—– BEGIN LICENSE —–
+Mifeng User
+Single User License
+EA7E-1184812
+C0DAA9CD 6BE825B5 FF935692 1750523A
+EDF59D3F A3BD6C96 F8D33866 3F1CCCEA
+1C25BE4D 25B1C4CC 5110C20E 5246CC42
+D232C83B C99CCC42 0E32890C B6CBF018
+B1D4C178 2F9DDB16 ABAA74E5 95304BEF
+9D0CCFA9 8AF8F8E2 1E0A955E 4771A576
+50737C65 325B6C32 817DCB83 A7394DFA
+27B7E747 736A1198 B3865734 0B434AA5
+—— END LICENSE ——
+```
+
+> 配置
+```
+
+```
+
+
+
+----
+
+### Visual Studio Code
+
+> 安装
+```
+paru -S vistual-studio-code-bin
+```
+
+> 配置
+```
+
+```
+
+----
+
+
 ### VMware Workstation 16
 
 ----
@@ -782,7 +832,23 @@ sudo pacman -S linux-headers
 sudo systemctl enable vmware-networks.service
 ```
 
+
+### BurpSuite
+
+----
+
+<https://github.com/h3110w0r1d-y/BurpLoaderKeygen>
+
+> 安装 JAVA 运行环境
+```
+paru -S openjdk17-src 
+```
+
+
+
 ### 其他常用软件
+
+----
 
 > 安装
 ```
