@@ -223,7 +223,9 @@ genfstab -U /mnt >> /mnt/etc/fstab  [ 生成 fstab 文件 ]
 less /mnt/etc/fstab                 [ 检查是否正确生成 ] [ 假如你足够自信也可以不查 ]
 ```
 
-假如你认真思考 仔细实践了上面的安装指南，那么恭喜你🧀！到了这一步，一个可以正常使用的 Arch Linux 就已经成功安装到了你之前指定的硬盘上了
+假如你仔细思考并认真实践了上面的安装指南，那么恭喜你！ 🧀
+
+现在一个可以正常使用的 Arch Linux 就已经成功安装到了你之前指定的硬盘上了
 
 下面我们需要进入刚刚安装的系统里进行进一步的配置了，准备好了吗？
 
@@ -236,10 +238,12 @@ less /mnt/etc/fstab                 [ 检查是否正确生成 ] [ 假如你足�
 arch-chroot /mnt
 ```
 
-> 安装一些你喜欢的软件
+> 安装些你喜欢的软件
 ```
 pacman -Syyu    [ 同步 pacman 官方源到本地软件数据库 ]
 pacman -S vim   [ 安装编辑器之神 - VIM ]
+pacman -S paru  [ 安装软件包管理器 paru ] [ 可选 ]
+...
 ```
 
 > 为你的刚刚安装的 Arch Linux 起一个屌炸天的名字吧 😎
@@ -280,16 +284,44 @@ locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 ```
 
-
-> 安装功能性软件
+> 设置 root 密码
 ```
-pacstarp /mnt vim       [ VIM 编辑器 ]
-pacstarp /mnt net-tools [ 网络工具包 ]
-pacstarp /mnt 
-pacstarp /mnt
-pacstarp /mnt
+passwd root
 ```
 
+*注意：此时用户是无法看到输入的密码的 这是Linux的一个特性 并不是键盘坏了！*😆
+
+> 创建新用户 xxx
+```
+useradd -m -G wheel -s /bin/zsh xxx
+```
+
+> 给新用户设置密码
+```
+passwd xxx
+```
+
+> 更改sudo用户组权限细节
+```
+[ vim /etc/sudoers ]
+
+#%wheel ALL=(ALL:ALL) NOPASSWD: ALL  [ 去掉最开头的 # 号 ]
+```
+
+> 安装微码 [ 根据自己的处理器品牌安装 ]
+```
+[  AMD  ]   pacman -S amd-ucode
+[ Intel ]   pacman -S intel-ucode
+```
+
+<details>
+<summary>啥是微码🤔</summary>
+<br />
+
+> 处理器制造商会发布对处理器微码的稳定性和安全性更新。这些更新提供了对系统稳定性至关重要的错误修复。如果没有这些更新，则可能会遇到不明原因的崩溃或难以跟踪的意外停机。
+> 使用 AMD 或 Intel CPU 的用户都应该安装微码更新以确保系统稳定性。
+
+</details>
 
 
 ### Nvidia 驱动安装
