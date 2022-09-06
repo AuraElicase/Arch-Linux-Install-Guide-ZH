@@ -2,7 +2,8 @@
 
 #### 安装前准备工作
 
-<details><summary>镜像下载及烧录</summary>
+<details>
+<summary>镜像下载及烧录</summary>
 <br />
 
 > 系统镜像下载
@@ -10,19 +11,39 @@
 https://archlinux.org/download/
 ```
 
-> 镜像烧录工具
+> 镜像写入工具
 ```
 [ BalenaEther ]     https://www.balena.io/etcher/
 [ Ventoy ]          https://www.ventoy.net/cn/download.html
 ```
 
-烧入后进入`BIOS` 启动项选择 U盘 **UEFI 模式** 启动
+成功写入后进入`BIOS`
+  - 关闭安全启动模式 `Secure Boot`
+  - 调整启动项顺序或直接选择使用 **UEFI 模式** 启动U盘内镜像
 
 如何进入 BIOS 请自行百度 这里不再赘述
 
 </details>
 
+## 安装 Arch Linux
+
+> 启动完成后速速禁用 reflector 服务，防止此服务擅自删除国内镜像源
+```
+systemctl stop reflector.service
+systemctl disable reflector.service
+```
+
+> 检查当前是否为 `UEFI` 模式启动
+```
+ls /sys/firmware/efi/efivars    [ 有输出则是 UEFI 模式 ]
+```
+
+----
+
+
 ### Nvidia 驱动安装
+
+----
 
 安装显卡驱动时，请尽量避免从 NVIDIA 官网下载驱动包进行安装
 
@@ -50,6 +71,8 @@ https://archlinux.org/download/
 ```
 sudo pacman -S nvidia nvidia-utils lib32-nvidia-utils
 ```
+
+----
 
 ## 软件安装
 
