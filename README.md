@@ -469,6 +469,25 @@ sudo systemctl enable gdm.service
 
 不过没关系，下面我们一起来美化 GNOME，打造一个属于我们自己的 GNOME ARCH 🍖
 
+> 安装字体
+```
+sudo pacman -S nerd-fonts-jetbrains-mono    [ 个人比较喜欢的字体 ]
+sudo pacman -S ttf-jetbrains-mono           [  ]
+sudo pacman -S noto-fonts-cjk               [ 中文字体 ]
+sudo pacman -S ttf-consolas-with-yahei      [ 微软雅黑 ]
+sudo pacman -S ttf-monaco                   [ 苹果设计字体 ]
+```
+
+> 安装 GNOME 优化工具
+```
+sudo pacman -S gnome-tweaks
+```
+
+> 安装 GNOME 应用栏
+```
+
+```
+
 
 ----
 
@@ -511,6 +530,11 @@ xxx-git     [ 从 GitHub 克隆软件源码到本地编译安装 软件是最新
 > 安装 Fish Shell
 ```
 paru -S fish-git
+```
+
+> 切换默认 SHELL 为 Fish Shell
+```
+chsh -s /usr/bin/fish
 ```
 
 > 安装 oh-my-fish [ 可选 ]
