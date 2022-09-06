@@ -50,7 +50,7 @@ ping www.bilibili.com
 timedatectl set-ntp true
 ```
 
-> 更换国内镜像源
+> 更换国内镜像源，放在文件开头
 ```
 [ vim /etc/pacman.d/mirrorlist ]
 
@@ -94,15 +94,37 @@ sda          259:0     0   1004G   0  disk
 > 我们按照如下方法进行分区
 ```
 [ NVMe ]
-/dev/nvme0n1p1  [ EFI 启动分区 512M ]
-/dev/nvme0n1p2  [ SWAP 分区 与内存大小相等 ]
-/dev/nvme0n1p3  [ / 分区 余下全部大小 ]
+/dev/nvme0n1p1 - EFI System        [ EFI 启动分区 512M ]
+/dev/nvme0n1p2 - Linux swap        [ 交换分区 与内存大小相等 ]
+/dev/nvme0n1p3 - Linux filesystem  [ 根分区 余下全部大小 ]
 
 [ SATA ]
-/dev/sda1       [ EFI 启动分区 512M ]
-/dev/sda2       [ SWAP 分区 与内存大小相等 ]
-/dev/sda3       [ / 分区 余下全部大小 ]
+/dev/sda1 - EFI System             [ EFI 启动分区 512M ]
+/dev/sda2 - Linux swap             [ 交换分区 与内存大小相等 ]
+/dev/sda3 - Linux filesystem       [ 根分区 余下全部大小 ]
 ```
+
+> 分区完毕后 需要我们格式化一下刚刚分出来的区域
+```
+mkfs.fat -F32 /dev/nvme0n1p1   [ 将 EFI 启动分区格式化为 FAT32 格式 ]
+
+mkswap /dev/nvme0n1p2          [ 建立 SWAP 交换分区 ]
+swapon /dev/nvme0n1p2          [ 启用 SWAP 交换分区 ]
+
+mkfs.xfs /dev/nvme0n1p3        [ 将根分区格式化为 XFS 文件系统 ]
+```
+
+> 格式化后 我们需要将这几个块设备挂载到 /mnt 目录 否则无法对其进行操作 [ 可以把挂载简单理解为映射]
+```
+mount /dev/nvme0n1p3 /mnt          [ 将根目录挂载到 /mnt 上 现在的 /mnt 相当于我们要安装系统的根目录 ]
+
+mkdir /mnt/boot                    [ 创建新系统的启动目录 ]
+mount /dev/nvme0n1p1 /mnt/boot     [ 将 EFI 启动目录挂载到新系统的 /boot 目录下 ]
+```
+
+现在 我们已经拥有一个可以启动的系统了 但系统里除了有一个 [ `/boot` ] 启动目录 其他什么都没有 就算能启动也无法进行任何操作
+
+喝杯啤酒庆祝一下吧 🍺
 
 
 
