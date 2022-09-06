@@ -106,6 +106,335 @@ xxx-git     [ 从 GitHub 克隆软件源码到本地编译安装 软件是最新
 
 *注意：编译需要一定的时间 视 CPU 性能而定 若环境配置不当 [ 如缺少编译工具 ] 编译大概率会失败*
 
+### Fish Shell
+
+----
+
+> 安装 oh-my-fish
+```bash
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+```
+
+> 安装 autojump
+```bashy
+yay -S autojump-git
+```
+
+> 在 config.fish 中索引 autojump 文件
+```bash
+source ~/.autojump/share/autojump/autojump.fish
+```
+
+<details>
+<summary>笔者的 Fish Shell 配置</summary>
+
+```fish
+function fish_greeting
+    echo " --        __  ___   _________  __ ____  ____________________________      --  "
+    echo " --       / / / / | / / ____/ |/ // __ \/ ____/ ____/_  __/ ____/ __ \     --  "
+    echo " --      / / / /  |/ / __/  |   // /_/ / __/ / /     / / / __/ / / / /     --  "
+    echo " --     / /_/ / /|  / /___ /   |/ ____/ /___/ /___  / / / /___/ /_/ /      --  "
+    echo " --     \____/_/ |_/_____//_/|_/_/   /_____/\____/ /_/ /_____/_____/       --  "
+    echo " --                                                                        --  "
+    set_color '6C5B9E'
+    echo " [  $hostname : $USER ] [ $(date +%T\ %m-%d) ] "
+end
+
+function fish_title
+    echo $argv[1] (prompt_pwd)
+end
+
+# SET PROMPT
+function fish_prompt
+    set -l cwd $(pwd | sed "s:^$HOME:~:")
+    echo "$(set_color 'C53B82') [$(set_color 'BBE73D') $cwd $(set_color 'C53B82')]$(set_color 'C1E94F') [ "
+end
+
+function fish_right_prompt
+    set -l git_branch (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
+    echo "$(set_color '6C5B9E') $git_branch  $(set_color 'C1E94F') ] $(set_color '686868')$(date +%H:%M\ %a)  "
+end
+
+
+# ENABLE VI-MODE
+function fish_user_key_bindings
+    # ENABLE EMACS KEYBINDINGS
+    fish_default_key_bindings -M insert
+
+    # ENABLE VI KEYBINDINGS
+    fish_vi_key_bindings --no-erase insert
+end
+
+# SET VI-MODE CURSOR SHAPE
+set fish_cursor_default block
+set fish_cursor_insert line blink
+set fish_cursor_visual block
+set fish_cursor_replace_one underscore
+
+# SET KEYBINDINGS
+bind -M default 'L' end-of-line repaint
+bind -M default 'H' beginning-of-line repaint
+bind -M default \e accept-autosuggestion repaint
+
+
+# SET ALIAS
+alias  c         "cd ~/t00ls/Clash/ && nohup ./clash-1.8.0 -d . &"
+alias  ficonf    "nvim ~/.config/fish/config.fish"
+alias  alconf    "nvim ~/.alacritty.yml"
+alias  nvimconf  "nvim ~/.config/nvim/init.lua"
+alias  plugconf  "nvim ~/.config/nvim/lua/core/plugins.lua"
+alias  setconf   "nvim ~/.config/nvim/lua/core/options.lua"
+alias  mapconf   "nvim ~/.config/nvim/lua/core/keymaps.lua"
+alias  renvim    "rm -rf ~/.local/share/nvim ~/.cache/nvim && \
+        git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+
+alias  upnvim    "yay --noconfirm -Rns neovim-git && yay -S --noconfirm neovim-git && \
+        sudo rm /usr/share/nvim/runtime/colors/*"
+alias  gpa       "git add . && git commit -m 'UPDATE' && git push -u origin main"
+
+alias  ..    "cd .."
+alias  ...   "cd ../.."
+alias  ra    "ranger"
+alias  ls    "exa"
+alias  ll    "exa -l"
+alias  cat   "bat"
+alias  grep  "ripgrep"
+alias  top   "glances"
+alias  f     "trans -l zh -to zh -j -speak -indent 8"
+alias  u     "sudo pacman -Syyu && yay -Syyu"
+alias  e     "nvim --startuptime /tmp/nvim-time.log --noplugin -i NONE"
+alias  vi    "nvim --startuptime /tmp/nvim-time.log -u ~/.config/nvim/zen/init.lua -i NONE --noplugin"
+alias  t     "tail -n 30 /tmp/nvim-time.log && rm /tmp/nvim-time.log"
+alias  sd    "shutdown -h now"
+alias  rb    "reboot"
+
+# ABBREV
+abbr yi "yay -S"
+abbr pi "sudo pacman -S"
+abbr ss "sudo systemctl"
+
+# function rm
+#     mv -i $argv ~/.local/share/Trash/files/
+# end
+
+set EDITOR "nvim"
+
+source ~/.autojump/share/autojump/autojump.fish
+```
+
+</details>
+
+----
+
+### Alacritty
+
+Alacritty 是一个 GPU 加速渲染的终端模拟器，启动快速丝滑，非常好用
+
+> 安装
+
+```
+paru -S alacritty-git
+```
+
+----
+
+<details>
+<summary>官方配置文档</summary>
+
+<https://github.com/alacritty/alacritty/blob/master/alacritty.yml>
+
+</details>
+
+<details>
+<summary>笔者的 Alacritty 配置</summary>
+
+```yml
+
+env:
+  TERM: alacritty
+  http_proxy: http://192.168.42.129:7890/
+  https_proxy: http://192.168.42.129:7890/
+
+# 热加载
+live_config_reload: true
+
+mouse_bindings:
+  - { mouse: Right, action: Paste }
+
+key_bindings:
+  - { key: Escape,  mods: Control,  action: ToggleViMode }
+  - { key: W,       mods: Control,  action: quit }
+  - { key: J,       mods: Shift,    action: ScrollHalfPageDown,  mode: Vi }
+  - { key: K,       mods: Shift,    action: ScrollHalfPageUp,    mode: Vi }
+
+window:
+  # GTK 主题
+  decorations_theme_variant: dark
+
+  # 是否显示顶栏 full / none
+  decorations: full
+
+  # 窗口大小
+  dimensions:
+    columns: 210
+    lines: 40
+
+  # 透明度
+  opacity: 0.80
+
+  # 是否开启动态标题
+  dynamic_title: true
+
+# Nerd Font Mono / Monaco
+# ShureTech      Ubuntu
+# JetBrains      Aurulent
+# InconsolataGo  Blex
+# CaskaydiaCove  Cousine
+# BitstreamVera  MesloLGS                
+font:
+  # 字体大小
+  size: 11
+  # 字间距
+  offset:
+    x: 0
+    y: 0
+
+  normal:
+    family: 'JetBrainsMono Nerd Font Mono'
+    style: Regular
+
+  bold:
+    family: 'JetBrainsMono Nerd Font Mono'
+    style: Bold
+
+  italic:
+    family: 'JetBrainsMono Nerd Font Mono'
+    style: Italic
+
+  bold_itali:
+    family: 'JetBrainsMono Nerd Font Mono'
+    style: Bold Italic
+
+
+colors:
+  primary:
+    background: '#222222'
+    foreground: '#626262'
+
+  normal:
+    black:   '#252525'
+    grey:    '#555555'
+    red:     '#E73E95'
+    green:   '#BBE73D'
+    yellow:  '#DEA600'
+    purple:  '#AF87D7'
+    bpurple: '#614F97'
+    orange:  '#FF9121'
+    blue:    '#008FBF'
+    magenta: '#FF79C6'
+    cyan:    '#8BE9FD'
+    white:   '#DDDDDD'
+
+  bright:
+    black:   '#222222'
+    red:     '#E73E95'
+    green:   '#BBE73D'
+    yellow:  '#DEA600'
+    purple:  '#AF87D7'
+    bpurple: '#614F97'
+    orange:  '#FF9121'
+    blue:    '#008FBF'
+    magenta: '#FF79C6'
+    cyan:    '#8BE9FD'
+    white:   '#DDDDDD'
+
+selection:
+  semantic_escape_chars: ",`|\"' ()[]{}<>\t@="
+  save_to_clipboard: true
+
+mouse:
+  hide_when_typing: true
+
+url:
+  modifiers: Command
+```
+
+</details>
+
+---
+
+### GIT
+
+> 安装 GIT
+```
+paru -S git-git
+```
+
+> 配置 GIT 个人信息
+```
+git config --global user.name "NEX"
+git config --global user.email "veperx@icloud.com"
+```
+
+> 配置 GIT 文本编辑器
+```
+git config --global core.editor nvim
+```
+
+> 配置 GIT 差异分析工具
+```
+git config --global merge.tool nvimdiff
+```
+
+----
+
+<details>
+<summary>GitHub 添加 SSH</summary>
+<br />
+
+> 生成 SSH-Key
+```
+ssh-keygen -t rsa -C "GitHub Email“
+```
+
+> GitHub 添加生成公钥
+```
+打开 GitHub -> 右上角 Settings -> 左栏 SSH and GPG Keys -> New SSH Key
+
+标题可随意填写 下方输入框内填写公钥内容 [ ~/.ssh/id_rsa.pub ]
+```
+
+</details>
+
+----
+
+### Chrome
+
+----
+
+> 安装
+```
+paru -S google-chrome
+```
+
+> 插件推荐
+```
+HackBar [ 这个干嘛的不能说 ]
+Vimium  [ 用 VIM 键位浏览网页 效率UPUP ^_^ ]
+AdBlock [ 屏蔽广告插件 ]
+
+Wappalyzer          [ 网站指纹识别 ]
+Grammarly           [ 自动检查英语语法并提出建议 ]
+SingleFile          [ 保存网页到一个 HTML 文件 ]
+Bookmark Sidebar    [ 侧栏显示收藏书签 ]
+Infinity New Tab    [ 美化新标签页 ]
+Simple Translate    [ 划词翻译 支持 DeepL API ]
+Proxy SwitchyOmega  [ 快速切换浏览器代理 ]
+
+JavaScript and CSS Beautifier   [ 自动格式化 JS CSS 源码 ]
+```
+
+
 ### Fcitx 5
 ----
 
@@ -197,70 +526,12 @@ yay -S linux519-headers
 sudo systemctl enable vmware-networks.service
 ```
 
-### Fish Shell
+### Spotify
 
-----
-
-> 安装 oh-my-fish
-```bash
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+> 安装
 ```
-
-> 安装 autojump
-```bashy
-yay -S autojump-git
+paru -S spotify
 ```
-
-> 在 config.fish 中索引 autojump 文件
-```bash
-source ~/.autojump/share/autojump/autojump.fish
-```
-
-### GIT
-
-> 安装 GIT
-```
-paru -S git-git
-```
-
-> 配置 GIT 个人信息
-```
-git config --global user.name "NEX"
-git config --global user.email "veperx@icloud.com"
-```
-
-> 配置 GIT 文本编辑器
-```
-git config --global core.editor nvim
-```
-
-> 配置 GIT 差异分析工具
-```
-git config --global merge.tool nvimdiff
-```
-
-----
-
-<details>
-<summary>GitHub 添加 SSH</summary>
-<br />
-
-> 生成 SSH-Key
-```
-ssh-keygen -t rsa -C "GitHub Email“
-```
-
-> GitHub 添加生成公钥
-```
-打开 GitHub -> 右上角 Settings -> 左栏 SSH and GPG Keys -> New SSH Key
-
-标题可随意填写 下方输入框内填写公钥内容 [ ~/.ssh/id_rsa.pub ]
-```
-
-</details>
-
-----
-
 
 
 
