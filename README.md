@@ -66,6 +66,7 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 
 <details>
 <summary>章节知识点</summary>
+<br />
 
 > 知识点
 ```
@@ -84,6 +85,8 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 ```
 
 </details>
+
+<br />
 
 > 查看当前分区状况
 ```
@@ -214,6 +217,70 @@ pacstrap /mnt base-devel     [ AUR 构建工具 ]
   - which
 ```
 
+> 让 Arch 开机自动挂载硬盘
+```
+genfstab -U /mnt >> /mnt/etc/fstab  [ 生成 fstab 文件 ]
+less /mnt/etc/fstab                 [ 检查是否正确生成 ] [ 假如你足够自信也可以不查 ]
+```
+
+假如你认真思考 仔细实践了上面的安装指南，那么恭喜你🧀！到了这一步，一个可以正常使用的 Arch Linux 就已经成功安装到了你之前指定的硬盘上了
+
+下面我们需要进入刚刚安装的系统里进行进一步的配置了，准备好了吗？
+
+### 系统基础配置
+
+----
+
+> 切换到根目录到新安装的系统中
+```
+arch-chroot /mnt
+```
+
+> 安装一些你喜欢的软件
+```
+pacman -Syyu    [ 同步 pacman 官方源到本地软件数据库 ]
+pacman -S vim   [ 安装编辑器之神 - VIM ]
+```
+
+> 为你的刚刚安装的 Arch Linux 起一个屌炸天的名字吧 😎
+```
+echo "UNEXPECTED" > /etc/hostname   [ 我为他起的名字是 UNEXPECTED ]
+```
+
+> 添加以下 hosts 映射
+```
+[ vim /etc/hosts ]
+
+127.0.0.1   localhost
+::1         localhost
+127.0.0.1   arch.localdomain    arch
+```
+
+> 设置系统时区
+```
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+
+> 同步硬件时间
+```
+hwclock --systohc
+```
+
+> 设置 locale
+```
+[ vim /etc/locale.gen ]
+
+使用 / 查找 en_US.UTF-8 UTF-8 并将光标移动到开头的 # 号按 x 删除
+使用 / 查找 zh_CN.UTF-8 UTF-8 并将光标移动到开头的 # 号按 x 删除
+
+按下 ESC 并输入:wq 回车即可退出 VIM
+
+命令行中执行
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+```
+
+
 > 安装功能性软件
 ```
 pacstarp /mnt vim       [ VIM 编辑器 ]
@@ -223,11 +290,6 @@ pacstarp /mnt
 pacstarp /mnt
 ```
 
-> 让 Arch 开机自动挂载硬盘
-```
-genfstab -U /mnt >> /mnt/etc/fstab  [ 生成 fstab 文件 ]
-less /mnt/etc/fstab                 [ 检查是否正确生成 ]
-```
 
 
 ### Nvidia 驱动安装
