@@ -482,16 +482,22 @@ paru -S gnome-tweaks-git
 
 > 安装 GNOME 扩展
 ```
-paru -S gnome-shell-extensions-git                [ GNOME 扩展管理工具 ]
+paru -S gnome-shell-extensions-git                [ GNOME 扩展管理工具 ] [ 可能不兼容 ]
 paru -S gnome-shell-extension-dash-to-dock-git    [ GNOME 应用栏 ]
 paru -S gnome-shell-extension-unite-git           [ GNOME UNITE 扩展 ]
 paru -S gnome-shell-extension-proxy-switcher-git  [ GNOME 系统代理切换工具 ]
+paru -S gnome-shell-extension-system-monitor-git-speed  [ GNOME 性能监控 ]
 ```
 
 > 下载 WhiteSur 主题生成工具并解压 根据 GitHub 文档提示进行安装即可
 ```
 [ https://github.com/vinceliuice/WhiteSur-gtk-theme ]
 
+./install.sh -t yellow -s 260 -i arch -HD --round -P smaller --nord
+```
+
+> Tweaks 可以定制 GNOME 外观
+```
 
 ```
 
