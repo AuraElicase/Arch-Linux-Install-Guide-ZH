@@ -27,6 +27,8 @@ https://archlinux.org/download/
 
 ## 安装 Arch Linux
 
+### 启动检查
+
 > 启动完成后速速禁用 reflector 服务，防止此服务擅自删除国内镜像源
 ```
 systemctl stop reflector.service
@@ -37,6 +39,72 @@ systemctl disable reflector.service
 ```
 ls /sys/firmware/efi/efivars    [ 有输出则是 UEFI 模式 ]
 ```
+
+> 检查网络是否连接
+```
+ping www.bilibili.com
+```
+
+> 更新系统时间
+```
+timedatectl set-ntp true
+```
+
+> 更换国内镜像源
+```
+[ vim /etc/pacman.d/mirrorlist ]
+
+Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
+```
+
+### 磁盘分区
+
+> 查看当前分区状况
+```
+[ lsblk ]
+
+[ NVMe ]
+NAME         MAJ:MIN  RM    SIZE  RO  TYPE  MOUNTPOINTS
+nvme0n1      259:0     0   1004G   0  disk
+├─nvme0n1p1  259:1     0      1G   0  part  /boot
+├─nvme0n1p2  259:2     0      8G   0  part  [SWAP]
+└─nvme0n1p3  259:3     0    905G   0  part  /
+
+[ SATA ]
+NAME         MAJ:MIN  RM    SIZE  RO  TYPE  MOUNTPOINTS
+sda          259:0     0   1004G   0  disk
+├─sda1       259:1     0      1G   0  part  /boot
+├─sda2       259:2     0      8G   0  part  [SWAP]
+└─sda3       259:3     0    905G   0  part  /
+```
+
+> 确定为我们的目标硬盘 [ nvme0n1 / sda ] 后 运行可视化分区程序 [ `cfdisk` ]
+```
+[ NVMe ] cfdisk /dev/nvme0n1
+[ SATA ] cfdisk /dev/sda
+```
+
+基本操作：
+- `↑` / `↓` 上下移动选择目标子卷
+- `←` / `→` 切换对选中目标子卷的操作
+- `<ENTER>` 执行 `←` / `→` 选中的操作
+- `d`       删除目标分区
+
+> 我们按照如下方法进行分区
+```
+[ NVMe ]
+/dev/nvme0n1p1  [ EFI 启动分区 512M ]
+/dev/nvme0n1p2  [ SWAP 分区 与内存大小相等 ]
+/dev/nvme0n1p3  [ / 分区 余下全部大小 ]
+
+[ SATA ]
+/dev/sda1       [ EFI 启动分区 512M ]
+/dev/sda2       [ SWAP 分区 与内存大小相等 ]
+/dev/sda3       [ / 分区 余下全部大小 ]
+```
+
+
 
 ----
 
@@ -421,7 +489,7 @@ paru -S google-chrome
 ```
 HackBar [ 这个干嘛的不能说 ]
 Vimium  [ 用 VIM 键位浏览网页 效率UPUP ^_^ ]
-AdBlock [ 屏蔽广告插件 ]
+AdBlock [ 屏蔽广告小插件 ]
 
 Wappalyzer          [ 网站指纹识别 ]
 Grammarly           [ 自动检查英语语法并提出建议 ]
@@ -555,7 +623,14 @@ Shortcut:   Alt + ;
 [ BuiltIn Shortcuts ]
 
 [ Ctrl  + w ]   Close Window
+[ Ctrl  + e ]   Home Folder
+[ Ctrl  + b ]   Launch Web Browser
 [ Super + f ]   FullScreen Toggle
+[ Super + h ]   Move window one monitor to the left
+[ Super + l ]   Move window one monitor to the right
+[ Super + j ]   Next Track
+[ Super + k ]   Previous Track
+[ Super + s ]   Play / Pause
 ```
 
 </details>
