@@ -64,6 +64,27 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 
 ----
 
+<details>
+<summary>章节知识点</summary>
+
+> 知识点
+```
+- SATA        [ SATA 是为机械硬盘传输数据而设计的串行总线 ]
+- NVMe        [ 专为采用闪存技术的固态硬盘设计的数据传输协议 性能高于使用 AHCI 协议的 SATA ]
+- M.2         [ 物理接口 与数据交换协议无关 ]
+- EFI System  [ 无关操作系统的分区 存储了 UEFI 启动所必须的固件 包括 EFI 引导加载器 / 应用程序 / 驱动 ]
+- SWAP        [ 交换文件 当系统内存满时会将暂时用不到的内存数据存入此硬盘文件 需要时再重新载入内存 ]
+```
+
+> 命令简介
+```
+- mkfs.xxx      [ 格式化并创建一个 xxx 格式的文件系统 ]
+- cfdisk        [ 可视化分区工具 ]
+- mount         [ 挂载命令 可以把挂载简单理解为磁盘映射 ]
+```
+
+</details>
+
 > 查看当前分区状况
 ```
 [ lsblk ]
@@ -118,7 +139,7 @@ swapon /dev/nvme0n1p2          [ 启用 SWAP 交换分区 ]
 mkfs.xfs /dev/nvme0n1p3        [ 将根分区格式化为 XFS 文件系统 ]
 ```
 
-> 格式化后 我们需要将这几个块设备挂载到 /mnt 目录 否则无法对其进行操作 [ 可以把挂载简单理解为映射]
+> 格式化后 我们需要将这几个块设备挂载到 /mnt 目录 否则无法对其进行操作
 ```
 mount /dev/nvme0n1p3 /mnt          [ 将根目录挂载到 /mnt 上 现在的 /mnt 相当于我们要安装系统的根目录 ]
 
@@ -143,6 +164,8 @@ mount /dev/nvme0n1p1 /mnt/boot     [ 将 EFI 启动目录挂载到新系统的 /
 > 命令简介
 ```
 - pacstrap    [ 将软件包安装到新的根目录中 ]
+- genfstab    [ 生成符合 fstab 文件格式的输出 ]
+
 ```
 
 > 内核版本
@@ -150,7 +173,7 @@ mount /dev/nvme0n1p1 /mnt/boot     [ 将 EFI 启动目录挂载到新系统的 /
 - Stable     [ 原版的 Linux 内核和模块 ]
 - Longterm   [ 受长期支持的 Linux 内核和模块 ]
 - Hardened   [ 注重安全的 Linux 内核 采用一系列加固补丁以缓解内核和用户空间漏洞 ]
-- Zen Kernel [ 一些内核黑客合作开发的成功 是最适合日常使用的内核 ]
+- Zen Kernel [ 一些内核黑客合作开发的成果 是最适合日常使用的内核 ]
 ```
 
 </details>
@@ -159,20 +182,51 @@ mount /dev/nvme0n1p1 /mnt/boot     [ 将 EFI 启动目录挂载到新系统的 /
 
 > 安装必要组件
 ```
-pacstrap /mnt linux          [ 系统内核 ]
-pacstrap /mnt linux-firmware [  ]
+pacstrap /mnt linux-zen      [ 系统内核与模块 ]
+pacstrap /mnt linux-firmware [ Linux 驱动与固件 ]
 
-pcastrap /mnt base           [  ]
+pcastrap /mnt base           [ Arch 安装的最小软件包集 ]
 pacstrap /mnt base-devel     [ AUR 构建工具 ]
+  - archlinux-keyring
+  - autoconf
+  - automake
+  - binutils
+  - bison
+  - fakeroot
+  - file
+  - findutils
+  - flex
+  - gawk
+  - gcc
+  - gettext
+  - grep
+  - groff
+  - gzip
+  - libtool
+  - m4
+  - make
+  - pacman
+  - patch
+  - pkgconf
+  - sed
+  - sudo
+  - texinfo
+  - which
 ```
 
 > 安装功能性软件
 ```
-pacstarp /mnt vim
+pacstarp /mnt vim       [ VIM 编辑器 ]
+pacstarp /mnt net-tools [ 网络工具包 ]
+pacstarp /mnt 
 pacstarp /mnt
 pacstarp /mnt
-pacstarp /mnt
-pacstarp /mnt
+```
+
+> 让 Arch 开机自动挂载硬盘
+```
+genfstab -U /mnt >> /mnt/etc/fstab  [ 生成 fstab 文件 ]
+less /mnt/etc/fstab                 [ 检查是否正确生成 ]
 ```
 
 
