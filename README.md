@@ -502,6 +502,11 @@ paru -S gnome-shell-extension-system-monitor-git-speed  [ GNOME 性能监控 ]
 ```
 
 
+> GRUB 美化
+```
+sudo ./install.sh
+```
+
 
 ----
 
@@ -603,6 +608,22 @@ paru -S alacritty-git
 
 ---
 
+### RANGER
+
+Ranger 是一个由 Python 写成的文件管理器
+
+> 安装 Ranger
+```
+paru -S ranger -git
+```
+
+> 配置 Ranger
+```
+```
+
+----
+
+
 ### GIT
 
 > 安装 GIT
@@ -673,7 +694,6 @@ Proxy SwitchyOmega  [ 快速切换浏览器代理 ]
 
 JavaScript and CSS Beautifier   [ 自动格式化 JS CSS 源码 ]
 ```
-
 
 ### Fcitx 5
 ----
@@ -753,12 +773,12 @@ Classic User Interface      [ Fcitx5 UI 设置 ]
 
 > Windows 16 Professional 激活码
 ```
-P4KWK-XDQTK-XYMCQ-GX6QJ-RCDVM
+YF390-0HF8P-M81RQ-2DXQE-M2UT6
 ```
 
 > 没有找到 Vmmon
 ```
-yay -S linux519-headers
+sudo pacman -S linux519-headers
 ```
 
 > 开机启动 VMware 网络服务 [ 不然虚拟机开启可能无法上网 ]
@@ -766,14 +786,22 @@ yay -S linux519-headers
 sudo systemctl enable vmware-networks.service
 ```
 
-### Spotify
+### 其他常用软件
 
 > 安装
 ```
-paru -S spotify
+[ 系统功能增强 ]
+paru -S exa             [ ls 增强 ]
+paru -S bat             [ cat 增强 ]
+paru -S ripgrep         [ grep 增强 ]
+
+
+paru -S translate-shell-git     [ 命令行翻译 ]
+
+[ 其他 ]
+paru -S spotify                 [ Spotify ]
+paru -S netease-cloud-music     [ 网抑云音乐 ]
 ```
-
-
 
 
 ### 其他配置
