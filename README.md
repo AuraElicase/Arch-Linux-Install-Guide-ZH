@@ -455,14 +455,19 @@ sudo pacman -S gnome
 sudo pacman -S gdm
 ```
 
-> 让 GNOME 开机自动启动
+> 配置自动在开机时启动 GNOME
 ```
 sudo systemctl enable gdm.service
 ```
 
-`reboot` 重启系统即可看到我们安装的 GNOME 啦 🎉
+执行 `reboot` 重启系统即可看到我们安装的 GNOME 啦 🎉
 
 
+### 图形界面美化
+
+到这里我们就已经拥有一个默认主题的 GNOME Arch Linux 了，但是默认主题确实有点丑
+
+不过没关系，下面我们一起来美化 GNOME，打造一个属于我们自己的 GNOME ARCH 🍖
 
 
 ----
@@ -503,17 +508,22 @@ xxx-git     [ 从 GitHub 克隆软件源码到本地编译安装 软件是最新
 
 ----
 
-> 安装 oh-my-fish
+> 安装 Fish Shell
+```
+paru -S fish-git
+```
+
+> 安装 oh-my-fish [ 可选 ]
 ```bash
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 ```
 
 > 安装 autojump
 ```bashy
-yay -S autojump-git
+paru -S autojump-git
 ```
 
-> 在 config.fish 中索引 autojump 文件
+> 在 [ `~/.config/fish/config.fish` ]  中索引 `autojump` 文件
 ```bash
 source ~/.autojump/share/autojump/autojump.fish
 ```
