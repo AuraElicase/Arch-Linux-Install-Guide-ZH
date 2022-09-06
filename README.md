@@ -312,6 +312,11 @@ passwd xxx
 pacman -S networkmanager
 ```
 
+<!-- > 配置网络管理器开机启动 -->
+<!-- ``` -->
+<!-- systemctl enable NetworkManager -->
+<!-- ``` -->
+
 > 安装微码 [ 根据自己的处理器品牌安装 ]
 ```
 [  AMD  ]   pacman -S amd-ucode
@@ -369,15 +374,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 下面就让我们一起来安装图形操作界面吧！😀
 
-Linux 下的图形化界面管理器有很多，其中比较主流的有
-
-+ KDE   强大 配置性高
-+ GNOME 简约 同时注重界面的操作性
-+ XFCE  轻量 启动速度飞快
-
-笔者个人的审美比较喜欢 GNOME，其拥有比肩 MacOS 的简洁美观的同时又不失操作性，KDE 对笔者来说有些臃肿
-
-
+在安装图形界面之前，我们需要安装一下显卡驱动
 
 #### Nvidia 驱动安装
 
@@ -387,8 +384,36 @@ Linux 下的图形化界面管理器有很多，其中比较主流的有
 
 通过 [ `pacman` ] 来安装的 NVIDIA 驱动能够在更新系统时与其他组件一同更新
 
+> 在安装驱动之前 我们先配置优化一下本地软件数据库
+```
+[ sudo vim /etc/pacman.conf ]
+```
+
+> 去掉下面的两行开头的 `#` 号
+```
+#[multilib]
+#Include = /etc/pacman.d/mirrorlist
+```
+
+> 文件末尾添加中国镜像仓库源
+```
+[archlinuxcn]
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+```
+
+添加完成后按 ESC 退出插入模式 然后输入 :wq 回车即可保存
+
+> 使刚才的配置生效并让本地软件数据库与云端同步
+```
+sudo pacman -Syyu
+```
+
+**现在就让我们一起来安装显卡驱动吧**
+
+----
+
 <details>
-<summary> 官方文档 </summary>
+<summary>Arch Linux 官方文档</summary>
 
     支持的显卡：
     GeForce 930起、10系至20系、 Quadro/Tesla/Tegra K-系列以及更新的显卡（NV110以及更新的显卡家族），安装 nvidia （用于linux） 或者 nvidia-lts （用于linux-lts）
@@ -405,10 +430,40 @@ Linux 下的图形化界面管理器有很多，其中比较主流的有
 
 </details><br />
 
-> 我的显卡是 RTX 2080Ti 所以我选择安装以下包
+> 我的显卡是 RTX 2080 Ti 所以选择安装以下包
 ```
 sudo pacman -S nvidia nvidia-utils lib32-nvidia-utils
 ```
+
+驱动安装好之后使用 `reboot` 重启，然后就可以安装图形化管理器了 🥑
+
+#### 图形化管理器安装
+
+----
+
+Linux 下的图形化界面管理器有很多，其中比较主流的有
+
++ KDE   强大 配置性高
++ GNOME 简约 同时注重界面的操作性
++ XFCE  轻量 启动速度飞快
+
+笔者个人的审美比较喜欢 GNOME，其拥有比肩 MacOS 的简洁美观的同时又不失操作性，KDE 对笔者来说有些臃肿
+
+> 安装 GNOME 与 窗口管理器 GDM
+```
+sudo pacman -S gnome
+sudo pacman -S gdm
+```
+
+> 让 GNOME 开机自动启动
+```
+sudo systemctl enable gdm.service
+```
+
+`reboot` 重启系统即可看到我们安装的 GNOME 啦 🎉
+
+
+
 
 ----
 
