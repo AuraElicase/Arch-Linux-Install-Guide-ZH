@@ -339,11 +339,42 @@ pacman -S os-prober    [ 其他操作系统检测程序 ] [ 可选 多系统则�
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH
 ```
 
-恭喜你！不出意外的话 现在的 Arch Linux 已经可以正常启动了 😀
+> 优化 GRUB 配置 [ 可选 ]
+```
+[ vim /etc/default/grub ]
+
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=5 nowatchdog"
+
+[ 若您安装了多系统 需要加上 ]
+GRUB_DISABLE_OS_PROBER=false
+```
+
+恭喜你！不出意外的话 现在的 Arch Linux 已经可以正常启动了 🎉
 
 现在执行 `shutdown now` 即可关闭电脑，重新开启前不要忘了拔掉U盘哦 🙂
 
-### Nvidia 驱动安装
+赶快试一试新的系统吧！
+
+
+### 图形界面安装
+
+----
+
+如果上面的安装步骤都没错，那么重启后你会进入一个黑乎乎的终端，丝毫没有现代操作系统的感jio
+
+下面就让我们一起来安装图形操作界面吧！😀
+
+Linux 下的图形化界面管理器有很多，其中比较主流的有
+
++ KDE   强大 配置性高
++ GNOME 简约 同时注重界面的操作性
++ XFCE  轻量 启动速度飞快
+
+笔者个人的审美比较喜欢 GNOME，其拥有比肩 MacOS 的简洁美观的同时又不失操作性，KDE 对笔者来说有些臃肿
+
+
+
+#### Nvidia 驱动安装
 
 ----
 
