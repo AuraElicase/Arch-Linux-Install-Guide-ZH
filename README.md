@@ -225,7 +225,7 @@ less /mnt/etc/fstab                 [ 检查是否正确生成 ] [ 假如你足�
 
 假如你仔细思考并认真实践了上面的安装指南，那么恭喜你！ 🧀
 
-现在一个可以正常使用的 Arch Linux 就已经成功安装到了你之前指定的硬盘上了
+现在一个可以正常使用的 Arch Linux 就已经成功安装到了你之前指定的硬盘上了 [ 此时无法通过启动进入 原因是还没安装系统引导程序 ]
 
 下面我们需要进入刚刚安装的系统里进行进一步的配置了，准备好了吗？
 
@@ -238,17 +238,16 @@ less /mnt/etc/fstab                 [ 检查是否正确生成 ] [ 假如你足�
 arch-chroot /mnt
 ```
 
+> 为你的刚刚安装的 Arch Linux 起一个屌炸天的名字吧 😎
+```
+echo "UNEXPECTED" > /etc/hostname   [ 我为他起的名字是 UNEXPECTED ]
+```
+
 > 安装些你喜欢的软件
 ```
 pacman -Syyu    [ 同步 pacman 官方源到本地软件数据库 ]
 pacman -S vim   [ 安装编辑器之神 - VIM ]
-pacman -S paru  [ 安装软件包管理器 paru ] [ 可选 ]
 ...
-```
-
-> 为你的刚刚安装的 Arch Linux 起一个屌炸天的名字吧 😎
-```
-echo "UNEXPECTED" > /etc/hostname   [ 我为他起的名字是 UNEXPECTED ]
 ```
 
 > 添加以下 hosts 映射
@@ -308,6 +307,11 @@ passwd xxx
 #%wheel ALL=(ALL:ALL) NOPASSWD: ALL  [ 去掉最开头的 # 号 ]
 ```
 
+> 安装网络管理器
+```
+pacman -S networkmanager
+```
+
 > 安装微码 [ 根据自己的处理器品牌安装 ]
 ```
 [  AMD  ]   pacman -S amd-ucode
@@ -323,6 +327,21 @@ passwd xxx
 
 </details>
 
+> 安装 GRUB 启动引导器
+```
+pacman -S grub         [ GRUB 启动引导器 ]
+pacman -S efibootmgr   [ UEFI 启动管理器 ]
+pacman -S os-prober    [ 其他操作系统检测程序 ] [ 可选 多系统则必选 ]
+```
+
+> 安装启动引导到UEFI分区
+```
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH
+```
+
+恭喜你！不出意外的话 现在的 Arch Linux 已经可以正常启动了 😀
+
+现在执行 `shutdown now` 即可关闭电脑，重新开启前不要忘了拔掉U盘哦 🙂
 
 ### Nvidia 驱动安装
 
