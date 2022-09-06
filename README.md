@@ -243,6 +243,29 @@ arch-chroot /mnt
 echo "UNEXPECTED" > /etc/hostname   [ 我为他起的名字是 UNEXPECTED ]
 ```
 
+> 配置本地软件数据库
+```
+[ sudo vim /etc/pacman.conf ]
+```
+
+> 去掉下面两行开头的 `#` 号
+```
+#[multilib]
+#Include = /etc/pacman.d/mirrorlist
+```
+
+> 在文件末尾添加中国镜像仓库源
+```
+[archlinuxcn]
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+```
+添加完成后按 ESC 退出插入模式 然后输入 :wq 回车即可保存
+
+> 让本地软件数据库与云端同步
+```
+sudo pacman -Syyu
+```
+
 > 安装些你喜欢的软件
 ```
 pacman -Syyu    [ 同步 pacman 官方源到本地软件数据库 ]
@@ -312,10 +335,10 @@ passwd xxx
 pacman -S networkmanager
 ```
 
-<!-- > 配置网络管理器开机启动 -->
-<!-- ``` -->
-<!-- systemctl enable NetworkManager -->
-<!-- ``` -->
+> 配置网络管理器开机启动
+```
+systemctl enable NetworkManager
+```
 
 > 安装微码 [ 根据自己的处理器品牌安装 ]
 ```
@@ -359,7 +382,7 @@ GRUB_DISABLE_OS_PROBER=false
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-恭喜你！不出意外的话 现在的 Arch Linux 已经可以正常启动了 🎉
+恭喜你！现在的 Arch Linux 已经可以正常启动了！ 🎉
 
 现在执行 `shutdown now` 即可关闭电脑，重新开启前不要忘了拔掉U盘哦 🙂
 
@@ -370,7 +393,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ----
 
-如果上面的安装步骤都没错，那么重启后你会进入一个黑乎乎的终端，丝毫没有现代操作系统的感jio
+如果上面的安装步骤都没错，重启后我们会进入一个黑乎乎的终端，丝毫没有现代操作系统的感jio
 
 下面就让我们一起来安装图形操作界面吧！😀
 
@@ -383,34 +406,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 安装显卡驱动时，请尽量避免从 NVIDIA 官网下载驱动包进行安装
 
 通过 [ `pacman` ] 来安装的 NVIDIA 驱动能够在更新系统时与其他组件一同更新
-
-> 在安装驱动之前 我们先配置优化一下本地软件数据库
-```
-[ sudo vim /etc/pacman.conf ]
-```
-
-> 去掉下面的两行开头的 `#` 号
-```
-#[multilib]
-#Include = /etc/pacman.d/mirrorlist
-```
-
-> 文件末尾添加中国镜像仓库源
-```
-[archlinuxcn]
-Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
-```
-
-添加完成后按 ESC 退出插入模式 然后输入 :wq 回车即可保存
-
-> 使刚才的配置生效并让本地软件数据库与云端同步
-```
-sudo pacman -Syyu
-```
-
-**现在就让我们一起来安装显卡驱动吧**
-
-----
 
 <details>
 <summary>Arch Linux 官方文档</summary>
@@ -430,12 +425,12 @@ sudo pacman -Syyu
 
 </details><br />
 
-> 我的显卡是 RTX 2080 Ti 所以选择安装以下包
+> 我的显卡是 RTX 2080 Ti 所以选择安装以下安装包
 ```
 sudo pacman -S nvidia nvidia-utils lib32-nvidia-utils
 ```
 
-驱动安装好之后使用 `reboot` 重启，然后就可以安装图形化管理器了 🥑
+驱动安装好之后使用 `reboot` 重启，然后我们就可以开始安装图形化管理器了 🥑
 
 #### 图形化管理器安装
 
@@ -447,7 +442,7 @@ Linux 下的图形化界面管理器有很多，其中比较主流的有
 + GNOME 简约 同时注重界面的操作性
 + XFCE  轻量 启动速度飞快
 
-笔者个人的审美比较喜欢 GNOME，其拥有比肩 MacOS 的简洁美观的同时又不失操作性，KDE 对笔者来说有些臃肿
+笔者个人比较喜欢 GNOME，因为其拥有比肩 MacOS 的简洁的外观 同时又不失操作性
 
 > 安装 GNOME 与 窗口管理器 GDM
 ```
@@ -465,9 +460,9 @@ sudo systemctl enable gdm.service
 
 ### 图形界面美化
 
-到这里我们就已经拥有一个默认主题的 GNOME Arch Linux 了，但是默认主题确实有点丑
+到这里我们就已经拥有一个默认主题的 GNOME Arch 了，但是默认主题确实有点丑 🙁
 
-不过没关系，下面我们一起来美化 GNOME，打造一个属于我们自己的 GNOME ARCH 🍖
+下面我们一起来美化 GNOME，打造一个属于我们自己 独一无二的 Arch Linux 🤪
 
 > 安装字体
 ```
@@ -482,21 +477,21 @@ paru -S gnome-tweaks-git
 
 > 安装 GNOME 扩展
 ```
-paru -S gnome-shell-extensions-git                [ GNOME 扩展管理工具 ] [ 可能不兼容 ]
-paru -S gnome-shell-extension-dash-to-dock-git    [ GNOME 应用栏 ]
-paru -S gnome-shell-extension-unite-git           [ GNOME UNITE 扩展 ]
-paru -S gnome-shell-extension-proxy-switcher-git  [ GNOME 系统代理切换工具 ]
+paru -S gnome-shell-extensions-git                      [ GNOME 扩展管理工具 ]
+paru -S gnome-shell-extension-dash-to-dock-git          [ GNOME 应用栏 ]
+paru -S gnome-shell-extension-unite-git                 [ GNOME UNITE 扩展 ]
+paru -S gnome-shell-extension-proxy-switcher-git        [ GNOME 系统代理切换工具 ]
 paru -S gnome-shell-extension-system-monitor-git-speed  [ GNOME 性能监控 ]
 ```
 
-> 下载 WhiteSur 主题生成工具并解压 根据 GitHub 文档提示进行安装即可
+> 下载 WhiteSur 主题并解压 根据 GitHub 文档提示进行安装即可
 ```
 [ https://github.com/vinceliuice/WhiteSur-gtk-theme ]
 
 ./install.sh -t yellow -s 260 -i arch -HD --round -P smaller --nord
 ```
 
-> Tweaks 可以定制 GNOME 外观
+> 使用 Tweaks 定制 GNOME 的外观
 ```
 
 ```
@@ -504,6 +499,7 @@ paru -S gnome-shell-extension-system-monitor-git-speed  [ GNOME 性能监控 ]
 
 > GRUB 美化
 ```
+
 sudo ./install.sh
 ```
 
@@ -778,7 +774,7 @@ YF390-0HF8P-M81RQ-2DXQE-M2UT6
 
 > 没有找到 Vmmon
 ```
-sudo pacman -S linux519-headers
+sudo pacman -S linux-headers
 ```
 
 > 开机启动 VMware 网络服务 [ 不然虚拟机开启可能无法上网 ]
