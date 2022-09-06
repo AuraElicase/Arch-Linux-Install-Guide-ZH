@@ -1,6 +1,6 @@
 <h1 align="center"> Arch Linux 系统安装记录 <h1>
 
-#### 安装前准备工作
+### 安装前准备工作
 
 <details>
 <summary>镜像下载及烧录</summary>
@@ -28,6 +28,8 @@ https://archlinux.org/download/
 ## 安装 Arch Linux
 
 ### 启动检查
+
+----
 
 > 启动完成后速速禁用 reflector 服务，防止此服务擅自删除国内镜像源
 ```
@@ -59,6 +61,8 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 ```
 
 ### 磁盘分区
+
+----
 
 > 查看当前分区状况
 ```
@@ -104,7 +108,7 @@ sda          259:0     0   1004G   0  disk
 /dev/sda3 - Linux filesystem       [ 根分区 余下全部大小 ]
 ```
 
-> 分区完毕后 需要我们格式化一下刚刚分出来的区域
+> 分区完毕后 我们需要格式化一下刚刚分出来的区域
 ```
 mkfs.fat -F32 /dev/nvme0n1p1   [ 将 EFI 启动分区格式化为 FAT32 格式 ]
 
@@ -126,9 +130,50 @@ mount /dev/nvme0n1p1 /mnt/boot     [ 将 EFI 启动目录挂载到新系统的 /
 
 喝杯啤酒庆祝一下吧 🍺
 
+----
 
+### 系统核心安装
 
 ----
+
+<details>
+<summary>章节知识点</summary>
+<br />
+
+> 命令简介
+```
+- pacstrap    [ 将软件包安装到新的根目录中 ]
+```
+
+> 内核版本
+```
+- Stable     [ 原版的 Linux 内核和模块 ]
+- Longterm   [ 受长期支持的 Linux 内核和模块 ]
+- Hardened   [ 注重安全的 Linux 内核 采用一系列加固补丁以缓解内核和用户空间漏洞 ]
+- Zen Kernel [ 一些内核黑客合作开发的成功 是最适合日常使用的内核 ]
+```
+
+</details>
+
+<br />
+
+> 安装必要组件
+```
+pacstrap /mnt linux          [ 系统内核 ]
+pacstrap /mnt linux-firmware [  ]
+
+pcastrap /mnt base           [  ]
+pacstrap /mnt base-devel     [ AUR 构建工具 ]
+```
+
+> 安装功能性软件
+```
+pacstarp /mnt vim
+pacstarp /mnt
+pacstarp /mnt
+pacstarp /mnt
+pacstarp /mnt
+```
 
 
 ### Nvidia 驱动安装
@@ -626,7 +671,7 @@ paru -S spotify
 
 
 
-#### 其他配置
+### 其他配置
 
 ----
 
