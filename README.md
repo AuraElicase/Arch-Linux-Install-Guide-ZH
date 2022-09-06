@@ -472,21 +472,29 @@ sudo systemctl enable gdm.service
 > 安装字体
 ```
 sudo pacman -S nerd-fonts-jetbrains-mono    [ 个人比较喜欢的字体 ]
-sudo pacman -S ttf-jetbrains-mono           [  ]
-sudo pacman -S noto-fonts-cjk               [ 中文字体 ]
-sudo pacman -S ttf-consolas-with-yahei      [ 微软雅黑 ]
 sudo pacman -S ttf-monaco                   [ 苹果设计字体 ]
 ```
 
-> 安装 GNOME 优化工具
+> 安装 GNOME 主题优化工具
 ```
-sudo pacman -S gnome-tweaks
-```
-
-> 安装 GNOME 应用栏
+paru -S gnome-tweaks-git
 ```
 
+> 安装 GNOME 扩展
 ```
+paru -S gnome-shell-extensions-git                [ GNOME 扩展管理工具 ]
+paru -S gnome-shell-extension-dash-to-dock-git    [ GNOME 应用栏 ]
+paru -S gnome-shell-extension-unite-git           [ GNOME UNITE 扩展 ]
+paru -S gnome-shell-extension-proxy-switcher-git  [ GNOME 系统代理切换工具 ]
+```
+
+> 下载 WhiteSur 主题生成工具并解压 根据 GitHub 文档提示进行安装即可
+```
+[ https://github.com/vinceliuice/WhiteSur-gtk-theme ]
+
+
+```
+
 
 
 ----
