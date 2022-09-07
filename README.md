@@ -87,12 +87,16 @@ timedatectl status          [ 检查 ]
 当 Linux 系统如果识别到一个磁盘 就会将其分配为一个块设备如 [ `/dev/sda` ] [ `/dev/nvme0n1` ] [ `/dev/mmcblk0` ] 用 lsblk 或 fdisk 可以查看
 
 > [ `lsblk` ]
+
 <img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/lsblk.png">
 
 > [ `fdisk` ]
-<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/fdisk.png">
+
+<img height="150" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/fdisk.png">
 
 </details><br />
+
+----
 
 > 使用 [ `lsblk` ] 查看当前分区状况并确定系统安装的区域 [ `nvme0n1` ]
 
@@ -100,8 +104,10 @@ timedatectl status          [ 检查 ]
 
 这里我的硬盘使用 NVMe 协议 所以 [ `lsblk` ] 命令输出 [ `nvme0n1` ] 如果硬盘是 SATA 协议的可能会看到 [ `/dev/sda` ]
 
+*结果中结尾是 `rom` `loop` 或 `airoot` 的设备可以忽略*
 
-> 确定为我们的目标硬盘 [ nvme0n1 / sda ] 后 运行可视化分区程序 [ `cfdisk` ]
+
+> 在确定为我们的目标硬盘 [ nvme0n1 / sda ] 后 运行可视化分区程序 [ `cfdisk` ] 对其进行分区
 ```
 [ NVMe ] cfdisk /dev/nvme0n1
 [ SATA ] cfdisk /dev/sda
@@ -125,8 +131,13 @@ timedatectl status          [ 检查 ]
 /dev/sda2 - Linux swap             [ 交换分区 与内存大小相等 ]
 /dev/sda3 - Linux filesystem       [ 根分区 余下全部大小 ]
 ```
+分区完毕后按 `W` 输入 `yes` 对分区结果进行保存，按 `q` 即可退出可视化分区工具
 
-> 分区完毕后 我们需要格式化一下刚刚分出来的区域
+> 如果您不放心的话，可以再次输入 [ `fdisk -l` ] 查看分区结果 🙁
+
+<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/partion_done.png">
+
+> 现在我们对刚刚分出来的区域进行简单处理
 ```
 mkfs.fat -F32 /dev/nvme0n1p1   [ 将 EFI 启动分区格式化为 FAT32 格式 ]
 
@@ -136,7 +147,15 @@ swapon /dev/nvme0n1p2          [ 启用 SWAP 交换分区 ]
 mkfs.xfs /dev/nvme0n1p3        [ 将根分区格式化为 XFS 文件系统 ]
 ```
 
-> 格式化后 我们需要将这几个块设备挂载到 /mnt 目录 否则无法对其进行操作
+<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/partion_fsdone.png">
+
+在处理完后 我们就已经拥有了一个最基本的 Linux 分区结构了！🍺
+
+> 很多同学都知道，在 Linux 系统下 **一切皆文件** 不管是 鼠标 键盘 还是显示器 硬盘，对 Linux 来说都是文件，只不过这几个文件比较特殊而已
+> 我们刚刚分出的三个区域对 Linux 来说就是三个块设备文件，如果我们想要操作这三个文件，必须先把这三个文件映射到某一个我们能操作的目录下
+> 这样的话 我们在那个目录里所做的一切修改 都会反映到映射的源头 也就是上面三个块设备文件
+
+> 将这几个块设备挂载到 /mnt 目录以便对其进行操作
 ```
 mount /dev/nvme0n1p3 /mnt          [ 将根目录挂载到 /mnt 上 现在的 /mnt 相当于我们要安装系统的根目录 ]
 
@@ -144,9 +163,11 @@ mkdir /mnt/boot                    [ 创建新系统的启动目录 ]
 mount /dev/nvme0n1p1 /mnt/boot     [ 将 EFI 启动目录挂载到新系统的 /boot 目录下 ]
 ```
 
-现在 我们已经拥有一个可以启动的系统了 但系统里除了有一个 [ `/boot` ] 启动目录 其他什么都没有 就算能启动也无法进行任何操作
+现在 我们我们要安装的系统就被挂载到了本机的 `/mnt` 文件夹里了 我们对 `/mnt` 文件夹里做的一切修改 都会反映到新的系统中
 
-喝杯啤酒庆祝一下吧 🍺
+现在新系统里除了有一个用来保存启动文件的 [ `/boot` ] 文件夹外 其他什么还都没有 也就是说 我们现在是无法使用这个系统的 [ 相当于你的 C 盘里有一个空的 `boot` 文件夹 ]
+
+喝杯奶茶休息一下吧 🧋
 
 ----
 
