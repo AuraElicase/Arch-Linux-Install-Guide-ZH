@@ -3,7 +3,7 @@
 ### 安装前准备工作
 
 <details>
-<summary>镜像下载及烧录</summary>
+<summary>镜像下载及写入</summary>
 <br />
 
 > 系统镜像下载
@@ -49,15 +49,8 @@ ping www.bilibili.com
 
 > 更新系统时间
 ```
-timedatectl set-ntp true
-```
-
-> 更换国内镜像源，放在文件开头
-```
-[ vim /etc/pacman.d/mirrorlist ]
-
-Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
-Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
+timedatectl set-ntp true    [ 更新 ]
+timedatectl status          [ 检查 ]
 ```
 
 ### 磁盘分区
@@ -70,11 +63,17 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 
 > 知识点
 ```
+[ 硬盘相关 ]
+- M.2         [ 物理接口 与数据交换协议无关 ]
 - SATA        [ SATA 是为机械硬盘传输数据而设计的串行总线 ]
 - NVMe        [ 专为采用闪存技术的固态硬盘设计的数据传输协议 性能高于使用 AHCI 协议的 SATA ]
-- M.2         [ 物理接口 与数据交换协议无关 ]
-- EFI System  [ 无关操作系统的分区 存储了 UEFI 启动所必须的固件 包括 EFI 引导加载器 / 应用程序 / 驱动 ]
-- SWAP        [ 交换文件 当系统内存满时会将暂时用不到的内存数据存入此硬盘文件 需要时再重新载入内存 ]
+
+[ 分区相关 ]
+- MBR         [ 主引导记录 包含操作系统启动加载器和分区表 ]
+- GPT         [ 全局唯一标识分区表 是 UEFI 标准定义的分区规范 为替换 MBR 而设计 ]
+- EFI / UEFI  [ 操作系统和固件之间接口的模型 提供了启动操作系统或预启动程序的标准环境 ]
+- EFI System  [ 存储了 UEFI 启动所必须固件的分区 包括 EFI 引导加载器 / 应用程序 / 驱动 ]
+- SWAP        [ 交换文件 当系统内存满时会将暂时用不到的内存数据存入此文件 需要时再从硬盘重新载入到内存 ]
 ```
 
 > 命令简介
@@ -179,9 +178,15 @@ mount /dev/nvme0n1p1 /mnt/boot     [ 将 EFI 启动目录挂载到新系统的 /
 - Zen Kernel [ 一些内核黑客合作开发的成果 是最适合日常使用的内核 ]
 ```
 
-</details>
+</details><br />
 
-<br />
+> 更换国内镜像源，放在文件开头
+```
+[ vim /etc/pacman.d/mirrorlist ]
+
+Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
+```
 
 > 安装必要组件
 ```
@@ -261,16 +266,9 @@ Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 ```
 添加完成后按 ESC 退出插入模式 然后输入 :wq 回车即可保存
 
-> 让本地软件数据库与云端同步
+>  同步 pacman 官方源到本地软件数据库
 ```
 sudo pacman -Syyu
-```
-
-> 安装些你喜欢的软件
-```
-pacman -Syyu    [ 同步 pacman 官方源到本地软件数据库 ]
-pacman -S vim   [ 安装编辑器之神 - VIM ]
-...
 ```
 
 > 添加以下 hosts 映射
@@ -1117,3 +1115,10 @@ Shortcut:   Alt + ;
 </details>
 
 ----
+
+
+<div align="center">
+    <p><i>作者：NEX</i></p>
+    <p><i>邮箱：veperx@iclud.com<i></p>
+    <p><i><strong>此文章严禁转载到 CSDN，其他社区请注明原文链接，违者以侵权处理</strong></i><p>
+</div>
