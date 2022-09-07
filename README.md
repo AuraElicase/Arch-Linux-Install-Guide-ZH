@@ -716,7 +716,7 @@ cat dconf-settings.ini | dconf load /   [ 载入 GNOME 配置文件 ]
     command-history=['ls', 'alacritty']
     disabled-extensions=['netspeed@alynx.one', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'extension-development-utility@maestroschan.fr', 'auto-move-windows@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'systemd-manager@hardpixel.eu', 'runcat@kolesnikov.se']
     enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'ProxySwitcher@flannaghan.com', 'ssm-gnome@lgiki.net', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'unite@hardpixel.eu', 'places-menu@gnome-shell-extensions.gcampax.github.com']
-    favorite-apps=['org.gnome.Nautilus.desktop', 'Alacritty.desktop', 'google-chrome.desktop', 'typora.desktop', 'sublime_text.desktop', 'visual-studio-code.desktop', 'org.gnome.Settings.desktop', 'spotify.desktop']
+    favorite-apps=['org.gnome.Nautilus.desktop', 'Alacritty.desktop', 'google-chrome.desktop', 'sublime_text.desktop', 'visual-studio-code.desktop', 'typora.desktop', 'spotify.desktop', 'org.gnome.Settings.desktop']
     welcome-dialog-last-shown-version='42.4'
 
     [org/gnome/shell/extensions/dash-to-dock]
