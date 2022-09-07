@@ -467,6 +467,68 @@ sudo systemctl enable gdm.service
 > 删除多余自带应用
 ```
 sudo pacman -Rns epiphany       [ WEB 浏览器 ]
+sudo pacman -Rns gedit          [ 记事本 ]
+sudo pacman -Rns baobe          [ 目录分析器 ]
+
+baobab
+cheese
+eog
+epiphany
+evince
+file-roller
+gdm
+gedit
+gnome-backgrounds
+gnome-books
+gnome-calculator
+gnome-calendar
+gnome-characters
+gnome-clocks
+gnome-color-manager
+gnome-contacts
+gnome-control-center
+gnome-disk-utility
+gnome-font-viewer
+gnome-keyring
+gnome-logs
+gnome-maps
+gnome-menus
+gnome-music
+gnome-photos
+gnome-remote-desktop
+gnome-session
+gnome-settings-daemon
+gnome-shell
+gnome-shell-extensions
+gnome-software
+gnome-system-monitor
+gnome-terminal
+gnome-user-docs
+gnome-user-share
+gnome-video-effects
+gnome-weather
+grilo-plugins
+gvfs
+gvfs-afc
+gvfs-goa
+gvfs-google
+gvfs-gphoto
+gvfs-mtp
+gvfs-nfs
+gvfs-smb
+malcontent
+mutter
+nautilus
+orca
+rygel
+sushi
+totem
+tracker
+vino
+xdg-user-dirs-gtk
+yelp
+simple-scan
+gnome-boxes
 ```
 
 > 安装字体
@@ -926,7 +988,7 @@ sudo systemctl enable vmware-networks.service
 
 > 安装 JAVA 运行环境
 ```
-paru -S openjdk17-src 
+paru -S openjdk17-src
 ```
 
 
