@@ -168,12 +168,12 @@ swapon /dev/nvme0n1p2          [ 启用 nvme0n1p2 分区上建立的 SWAP 交换
 mount /dev/nvme0n1p3 /mnt          [ 将根目录挂载到 /mnt 上 现在的 /mnt 相当于我们要安装系统的根目录 ]
 
 mkdir /mnt/boot                    [ 创建新系统的启动目录 ]
-mount /dev/nvme0n1p1 /mnt/boot     [ 将 EFI 启动目录挂载到新系统的 /boot 目录下 ]
+TODO: mount /dev/nvme0n1p1 /mnt/boot/efi     [ 将 EFI 启动目录挂载到新系统的 /boot 目录下 ]
 ```
 
-> 如果恁不放心 可以执行 [ `df -h` ] 检查挂载情况
+> 如果您不放心 可以执行 [ `df -h` ] 检查挂载情况
 
-TODO:img
+<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/mount-check.png">
 
 现在 我们我们要安装的系统就被挂载到了本机的 `/mnt` 文件夹里了 我们对 `/mnt` 文件夹里做的一切修改 都会反映到新的系统中
 
@@ -232,6 +232,7 @@ pacstrap /mnt linux-firmware [ Linux 驱动与固件 ]
 pcastrap /mnt base           [ Arch 安装的最小软件包集 ]
 pacstrap /mnt base-devel     [ AUR 构建工具 ]
 pacstrap /mnt vim            [ VIM 编辑器 ]
+pacstrap /mnt dhcpcd         [ DHCP 客户端 ]
 ```
 
 <details>
@@ -371,7 +372,7 @@ passwd xxx
 ```
 去掉后按 `ESC` 退出插入模式 然后输入 `:wq!` 回车即可强制保存
 
-<!-- > 安装网络管理器 -->
+<!-- > 安装网络管理器 [ dhcpcd ] -->
 <!-- ``` -->
 <!-- pacman -S networkmanager -->
 <!-- ``` -->
@@ -380,6 +381,11 @@ passwd xxx
 <!-- ``` -->
 <!-- systemctl enable NetworkManager -->
 <!-- ``` -->
+
+> 启动 `DHCP` 服务
+```
+systemctl enable dhcpcd
+```
 
 > 安装微码 [ 根据自己的处理器品牌安装 ]
 ```
@@ -429,7 +435,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 赶快试一试新的系统吧！
 
-
 ### 图形界面安装
 
 ----
@@ -438,7 +443,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 下面就让我们一起来安装图形操作界面吧！😀
 
-在安装图形界面之前，我们需要安装一下显卡驱动
+在安装图形界面之前，我们需要安装一下显卡驱动 [ 虚拟机的话跳过即可 ]
 
 #### Nvidia 驱动安装
 
@@ -563,12 +568,6 @@ GNOME 自带配置程序
 
 我们可以在上面几个配置程序中定制属于我们自己的 GNOME，也可以直接使用命令行导入 GNOME 配置文件
 
-> GNOME 配置文件的导出与导入
-```
-dconf dump / > dconf-settings.ini       [ 导出 GNOME 配置文件 ]
-cat dconf-settings.ini | dconf load /   [ 载入 GNOME 配置文件 ]
-```
-
 <details>
 <summary>命令行配置 GNOME</summary><br />
 
@@ -614,11 +613,11 @@ cat dconf-settings.ini | dconf load /   [ 载入 GNOME 配置文件 ]
 
     [ 设置系统代理 ]
     gsettings set org.gnome.system.proxy mode 'manual'
-    gsettings set org.gnome.system.proxy.http host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+    gsettings set org.gnome.system.proxy.http host '192.168.42.129'
     gsettings set org.gnome.system.proxy.http port '7890'
-    gsettings set org.gnome.system.proxy.https host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+    gsettings set org.gnome.system.proxy.https host '192.168.42.129'
     gsettings set org.gnome.system.proxy.https port '7890'
-    gsettings set org.gnome.system.proxy.socks host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+    gsettings set org.gnome.system.proxy.socks host '192.168.42.129'
     gsettings set org.gnome.system.proxy.socks port '7891'
 
 </details><br />
@@ -764,6 +763,11 @@ cat dconf-settings.ini | dconf load /   [ 载入 GNOME 配置文件 ]
 
 </details><br />
 
+> GNOME 配置文件的导出与导入
+```
+dconf dump / > dconf-settings.ini       [ 导出 GNOME 配置文件 ]
+cat dconf-settings.ini | dconf load /   [ 载入 GNOME 配置文件 ]
+```
 
 ----
 
