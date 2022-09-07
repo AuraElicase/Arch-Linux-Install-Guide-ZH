@@ -78,33 +78,28 @@ timedatectl status          [ 检查 ]
 
 > 命令简介
 ```
-- mkfs.xxx      [ 格式化并创建一个 xxx 格式的文件系统 ]
-- cfdisk        [ 可视化分区工具 ]
-- mount         [ 挂载命令 可以把挂载简单理解为磁盘映射 ]
+- mkfs.xxx    [ 格式化并创建一个 xxx 格式的文件系统 ]
+- cfdisk      [ 可视化分区工具 ]
+- mount       [ 挂载命令 可以把挂载简单理解为磁盘映射 ]
+- lsblk       [ 输出分区情况 ]
 ```
 
-</details>
+当 Linux 系统如果识别到一个磁盘 就会将其分配为一个块设备如 [ `/dev/sda` ] [ `/dev/nvme0n1` ] [ `/dev/mmcblk0` ] 用 lsblk 或 fdisk 可以查看
 
-<br />
+> [ `lsblk` ]
+<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/lsblk.png">
 
-> 查看当前分区状况
-```
-[ lsblk ]
+> [ `fdisk` ]
+<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/fdisk.png">
 
-[ NVMe ]
-NAME         MAJ:MIN  RM    SIZE  RO  TYPE  MOUNTPOINTS
-nvme0n1      259:0     0   1004G   0  disk
-├─nvme0n1p1  259:1     0      1G   0  part  /boot
-├─nvme0n1p2  259:2     0      8G   0  part  [SWAP]
-└─nvme0n1p3  259:3     0    905G   0  part  /
+</details><br />
 
-[ SATA ]
-NAME         MAJ:MIN  RM    SIZE  RO  TYPE  MOUNTPOINTS
-sda          259:0     0   1004G   0  disk
-├─sda1       259:1     0      1G   0  part  /boot
-├─sda2       259:2     0      8G   0  part  [SWAP]
-└─sda3       259:3     0    905G   0  part  /
-```
+> 使用 [ `lsblk` ] 查看当前分区状况并确定系统安装的区域 [ `nvme0n1` ]
+
+<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/lsblk.png">
+
+这里我的硬盘使用 NVMe 协议 所以 [ `lsblk` ] 命令输出 [ `nvme0n1` ] 如果硬盘是 SATA 协议的可能会看到 [ `/dev/sda` ]
+
 
 > 确定为我们的目标硬盘 [ nvme0n1 / sda ] 后 运行可视化分区程序 [ `cfdisk` ]
 ```
