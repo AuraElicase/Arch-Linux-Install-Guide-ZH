@@ -464,71 +464,10 @@ sudo systemctl enable gdm.service
 
 下面我们一起来美化 GNOME，打造一个属于我们自己 独一无二的 Arch Linux 🤪
 
-> 删除多余自带应用
+> 删除多余应用
 ```
 sudo pacman -Rns epiphany       [ WEB 浏览器 ]
 sudo pacman -Rns gedit          [ 记事本 ]
-sudo pacman -Rns baobe          [ 目录分析器 ]
-
-baobab
-cheese
-eog
-epiphany
-evince
-file-roller
-gdm
-gedit
-gnome-backgrounds
-gnome-books
-gnome-calculator
-gnome-calendar
-gnome-characters
-gnome-clocks
-gnome-color-manager
-gnome-contacts
-gnome-control-center
-gnome-disk-utility
-gnome-font-viewer
-gnome-keyring
-gnome-logs
-gnome-maps
-gnome-menus
-gnome-music
-gnome-photos
-gnome-remote-desktop
-gnome-session
-gnome-settings-daemon
-gnome-shell
-gnome-shell-extensions
-gnome-software
-gnome-system-monitor
-gnome-terminal
-gnome-user-docs
-gnome-user-share
-gnome-video-effects
-gnome-weather
-grilo-plugins
-gvfs
-gvfs-afc
-gvfs-goa
-gvfs-google
-gvfs-gphoto
-gvfs-mtp
-gvfs-nfs
-gvfs-smb
-malcontent
-mutter
-nautilus
-orca
-rygel
-sushi
-totem
-tracker
-vino
-xdg-user-dirs-gtk
-yelp
-simple-scan
-gnome-boxes
 ```
 
 > 安装字体
@@ -816,8 +755,23 @@ paru -R xxx     [ 卸载 xxx ]
 xxx-bin     [ 一般是编译好的二进制文件 下载即可使用 无需自行编译 无法保证是最新的 ]
 xxx-git     [ 从 GitHub 克隆软件源码到本地编译安装 软件是最新版本 可能存在不稳定的情况 ] ```
 ```
-
 *注意：编译需要一定的时间 视 CPU 性能而定 若环境配置不当 [ 如缺少编译工具 ] 编译大概率会失败*
+
+> 常用软件安装
+```
+[ 系统功能增强 ]
+paru -S exa-git             [ ls   增强 ]
+paru -S bat-git             [ cat  增强 ]
+paru -S ripgrep-git         [ grep 增强 ]
+
+paru -S translate-shell-git     [ 命令行翻译 ]
+
+[ 其他 ]
+paru -S termius                 [ SSH 工具 ]
+paru -S spotify                 [ Spotify ]
+paru -S netease-cloud-music     [ 网抑云音乐 ]
+```
+
 
 ### Fish Shell
 
@@ -1086,13 +1040,18 @@ B1D4C178 2F9DDB16 ABAA74E5 95304BEF
 paru -S vistual-studio-code-bin
 ```
 
+> 插件推荐
+```
+code runner
+```
+
 > 配置
 ```
 
 ```
 
-----
 
+----
 
 ### VMware Workstation 16
 
@@ -1126,28 +1085,7 @@ paru -S openjdk17-src
 ```
 
 
-
-### 其他常用软件
-
-----
-
-> 安装
-```
-[ 系统功能增强 ]
-paru -S exa             [ ls 增强 ]
-paru -S bat             [ cat 增强 ]
-paru -S ripgrep         [ grep 增强 ]
-
-
-paru -S translate-shell-git     [ 命令行翻译 ]
-
-[ 其他 ]
-paru -S spotify                 [ Spotify ]
-paru -S netease-cloud-music     [ 网抑云音乐 ]
-```
-
-
-### 其他配置
+# 其他配置
 
 ----
 
