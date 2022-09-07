@@ -551,104 +551,238 @@ paru -S gnome-shell-extension-unite-git                 [ GNOME UNITE 扩展 ]
 paru -S gnome-shell-extension-proxy-switcher-git        [ GNOME 系统代理切换工具 ]
 paru -S gnome-shell-extension-system-monitor-git-speed  [ GNOME 性能监控 ]
 
-paru -S gnome-terminal-transparency                     [ 终端透明美化 ]
+paru -S gnome-terminal-transparency                     [ GNOME 透明终端 ]
 ```
 
-> 下载 WhiteSur 主题并解压 根据 GitHub 文档提示进行安装即可
+> 下载系统主题 WhiteSur 解压并安装
 ```
 [ https://github.com/vinceliuice/WhiteSur-gtk-theme ]
 
-./install.sh -t yellow -s 260 -i arch -HD --round -P smaller --nord
+sudo ./install.sh -t yellow -s 260 -i arch -HD --round -P smaller --nord
 ```
 
-> 使用 Tweaks 定制 GNOME 的外观
+> 下载图标并复制到 [ `~/.icons` ] 文件夹
+```
+[ https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/tweaks/icons.zip ]
+
+unzip icons
+cp -r icons/* ~/.icons
 ```
 
+> GRUB 启动界面美化
 ```
-
-> 配置 GNOME
-```
-[ 设置窗口主题 ]
-gsettings set org.gnome.shell.extensions.user-theme name 'WhiteSur-Dark-yellow-nord'
-
-[ 优化桌面交互 ]
-gsettings set org.gnome.desktop.interface enable-hot-corners false
-gsettings set org.gnome.desktop.interface enable-animations false
-gsettings set org.gnome.desktop.interface enable-animations color-scheme 'prefer-dark'
-gsettings set org.gnome.desktop.interface enable-animations cursor-theme 'BreezeX-Dark'
-gsettings set org.gnome.desktop.interface enable-animations icon-theme 'NEX-DARK'
-gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
-gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
-gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar 'toggle-shade'
-
-
-[ 优化应用栏 ]
-gsettings set org.gnome.shell.extensions.dash-to-dock apply-custom-theme false
-gsettings set org.gnome.shell.extensions.dash-to-dock autohide false
-gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
-gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts false
-gsettings set org.gnome.shell.extensions.dash-to-dock show-show-apps-button false
-gsettings set org.gnome.shell.extensions.dash-to-dock running-indicator-style 'DASHES'
-gsettings set org.gnome.shell.extensions.dash-to-dock transparency-mode 'FIXED'
-gsettings set org.gnome.shell.extensions.dash-to-dock intellihide-mode 'ALWAYS_ON_TOP'
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
-gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 47
-gsettings set org.gnome.shell.extensions.dash-to-dock custom-theme-shrink true
-gsettings set org.gnome.shell.extensions.dash-to-dock background-opacity 0.0
-
-[ 优化顶栏 ]
-gsettings set org.gnome.shell.extensions.unite window-buttons-placement 'right'
-gsettings set org.gnome.shell.extensions.unite window-buttons-theme 'canta'
-gsettings set org.gnome.shell.extensions.unite show-window-title 'always'
-gsettings set org.gnome.shell.extensions.unite show-desktop-name true
-gsettings set org.gnome.shell.extensions.unite hide-window-titlebars 'maximized'
-gsettings set org.gnome.shell.extensions.unite hide-app-menu-icon false
-gsettings set org.gnome.shell.extensions.unite hide-activities-button 'never'
-gsettings set org.gnome.shell.extensions.unite desktop-name-text 'UNEXPECTED'
-gsettings set org.gnome.shell.extensions.unite enable-titlebar-actions true
-gsettings set org.gnome.shell.extensions.unite show-window-buttons 'always'
-
-[ 设置系统代理 ]
-gsettings set org.gnome.system.proxy mode 'manual'
-gsettings set org.gnome.system.proxy.http host '192.168.42.129'                                                                                                                           ] 18:36 Wed
-gsettings set org.gnome.system.proxy.http port '7890'
-gsettings set org.gnome.system.proxy.https host '192.168.42.129'                                                                                                                           ] 18:36 Wed
-gsettings set org.gnome.system.proxy.https port '7890'
-gsettings set org.gnome.system.proxy.socks host '192.168.42.129'                                                                                                                           ] 18:36 Wed
-gsettings set org.gnome.system.proxy.socks port '7891'
-
-[ 其他 ]
-
-[org/gnome/shell/extensions/simple-system-monitor]
-cpu-usage-text='CPU  -'
-download-speed-text='🔸'
-font-family='System-ui'
-font-size=' 14'
-is-cpu-usage-enable=true
-is-download-speed-enable=true
-is-memory-usage-enable=true
-is-upload-speed-enable=false
-item-separator='      '
-memory-usage-text='MEM  -'
-refresh-interval=1
-show-percent-sign=true
-text-color='#5e5c64'
-upload-speed-text='↑'
-```
-
-
-> 导出 GNOME 设置
-```
-dconf dump / > dconf-settings.ini       [ 导出 ]
-cat dconf-settings.ini | dconf load /   [ 重载 ]
-```
-
-
-> GRUB 美化
-```
+[ https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/tweaks/xenlism-grub-4k-kali.tar.xz ]
 
 sudo ./install.sh
 ```
+
+GNOME 自带配置程序
+  + Settings    系统基础配置
+  + Tweaks      系统界面优化
+  + Extensions  系统插件配置
+
+我们可以在上面几个配置程序中定制属于我们自己的 GNOME，也可以直接使用命令行导入 GNOME 配置文件
+
+> GNOME 配置文件的导出与导入
+```
+dconf dump / > dconf-settings.ini       [ 导出 GNOME 配置文件 ]
+cat dconf-settings.ini | dconf load /   [ 载入 GNOME 配置文件 ]
+```
+
+<details>
+<summary>命令行配置 GNOME</summary><br />
+
+    [ 设置窗口主题 ]
+    gsettings set org.gnome.shell.extensions.user-theme name 'WhiteSur-Dark-yellow-nord'
+
+    [ 优化桌面交互 ]
+    gsettings set org.gnome.desktop.interface enable-hot-corners false
+    gsettings set org.gnome.desktop.interface enable-animations false
+    gsettings set org.gnome.desktop.interface enable-animations color-scheme 'prefer-dark'
+    gsettings set org.gnome.desktop.interface enable-animations cursor-theme 'BreezeX-Dark'
+    gsettings set org.gnome.desktop.interface enable-animations icon-theme 'NEX-DARK'
+    gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+    gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
+    gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar 'toggle-shade'
+
+
+    [ 优化应用栏 ]
+    gsettings set org.gnome.shell.extensions.dash-to-dock apply-custom-theme false
+    gsettings set org.gnome.shell.extensions.dash-to-dock autohide false
+    gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
+    gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts false
+    gsettings set org.gnome.shell.extensions.dash-to-dock show-show-apps-button false
+    gsettings set org.gnome.shell.extensions.dash-to-dock running-indicator-style 'DASHES'
+    gsettings set org.gnome.shell.extensions.dash-to-dock transparency-mode 'FIXED'
+    gsettings set org.gnome.shell.extensions.dash-to-dock intellihide-mode 'ALWAYS_ON_TOP'
+    gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
+    gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 47
+    gsettings set org.gnome.shell.extensions.dash-to-dock custom-theme-shrink true
+    gsettings set org.gnome.shell.extensions.dash-to-dock background-opacity 0.0
+
+    [ 优化顶栏 ]
+    gsettings set org.gnome.shell.extensions.unite window-buttons-placement 'right'
+    gsettings set org.gnome.shell.extensions.unite window-buttons-theme 'canta'
+    gsettings set org.gnome.shell.extensions.unite show-window-title 'always'
+    gsettings set org.gnome.shell.extensions.unite show-desktop-name true
+    gsettings set org.gnome.shell.extensions.unite hide-window-titlebars 'maximized'
+    gsettings set org.gnome.shell.extensions.unite hide-app-menu-icon false
+    gsettings set org.gnome.shell.extensions.unite hide-activities-button 'never'
+    gsettings set org.gnome.shell.extensions.unite desktop-name-text 'UNEXPECTED'
+    gsettings set org.gnome.shell.extensions.unite enable-titlebar-actions true
+    gsettings set org.gnome.shell.extensions.unite show-window-buttons 'always'
+
+    [ 设置系统代理 ]
+    gsettings set org.gnome.system.proxy mode 'manual'
+    gsettings set org.gnome.system.proxy.http host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+    gsettings set org.gnome.system.proxy.http port '7890'
+    gsettings set org.gnome.system.proxy.https host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+    gsettings set org.gnome.system.proxy.https port '7890'
+    gsettings set org.gnome.system.proxy.socks host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+    gsettings set org.gnome.system.proxy.socks port '7891'
+
+</details><br />
+
+<details>
+<summary>直接导入配置 GNOME 配置文件</summary><br />
+
+    [org/gnome/desktop/interface]
+    clock-show-date=true
+    clock-show-seconds=false
+    clock-show-weekday=false
+    cursor-theme='BreezeX-Dark'
+    document-font-name='System-ui Bold Italic 11'
+    enable-animations=false
+    enable-hot-corners=false
+    font-hinting='none'
+    font-name='System-ui Bold Semi-Condensed 12'
+    gtk-theme='WhiteSur-Light-solid-yellow'
+    icon-theme='NEX-DARK'
+    monospace-font-name='System-ui 10'
+    toolkit-accessibility=false
+
+    [org/gnome/desktop/peripherals/mouse]
+    natural-scroll=true
+
+    [org/gnome/desktop/sound]
+    allow-volume-above-100-percent=true
+
+    [org/gnome/desktop/wm/keybindings]
+    close=['<Control>w']
+    minimize=@as []
+    move-to-monitor-left=['<Super>h']
+    move-to-monitor-right=['<Super>l']
+    toggle-fullscreen=['<Super>f']
+
+    [org/gnome/desktop/wm/preferences]
+    action-middle-click-titlebar='toggle-shade'
+    button-layout='close,maximize,minimize:'
+    resize-with-right-button=false
+    titlebar-font='System-ui 11'
+
+    [org/gnome/nautilus/window-state]
+    initial-size=(1440, 700)
+    maximized=false
+    sidebar-width=260
+    start-with-sidebar=true
+
+    [org/gnome/settings-daemon/plugins/color]
+    night-light-enabled=true
+    night-light-schedule-automatic=false
+    night-light-schedule-to=20.0
+    night-light-temperature=uint32 4700
+
+    [org/gnome/settings-daemon/plugins/media-keys]
+    custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+    home=['<Control>e']
+    next=['<Super>j']
+    play=['<Super>s']
+    previous=['<Super>k']
+    screensaver=@as []
+    stop=@as []
+    www=['<Control>b']
+
+    [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+    binding='<Alt>semicolon'
+    command='alacritty'
+    name='alacritty'
+
+    [org/gnome/settings-daemon/plugins/power]
+    power-button-action='suspend'
+    sleep-inactive-ac-timeout=7200
+    sleep-inactive-ac-type='nothing'
+
+    [org/gnome/shell]
+    command-history=['ls', 'alacritty']
+    disabled-extensions=['netspeed@alynx.one', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'extension-development-utility@maestroschan.fr', 'auto-move-windows@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'systemd-manager@hardpixel.eu', 'runcat@kolesnikov.se']
+    enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'ProxySwitcher@flannaghan.com', 'ssm-gnome@lgiki.net', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'unite@hardpixel.eu', 'places-menu@gnome-shell-extensions.gcampax.github.com']
+    favorite-apps=['org.gnome.Nautilus.desktop', 'Alacritty.desktop', 'google-chrome.desktop', 'typora.desktop', 'sublime_text.desktop', 'visual-studio-code.desktop', 'org.gnome.Settings.desktop', 'spotify.desktop']
+    welcome-dialog-last-shown-version='42.4'
+
+    [org/gnome/shell/extensions/dash-to-dock]
+    transparency-mode='FIXED'
+    background-opacity=0.0
+    custom-theme-shrink=true
+    dash-max-icon-size=47
+    dock-position='BOTTOM'
+    intellihide-mode='ALWAYS_ON_TOP'
+    running-indicator-style='DASHES'
+    show-mounts=false
+    show-show-apps-button=false
+    show-trash=false
+
+    [org/gnome/shell/extensions/simple-system-monitor]
+    is-cpu-usage-enable=true
+    cpu-usage-text='CPU   🔸'
+    is-memory-usage-enable=true
+    memory-usage-text='MEM  🔹'
+    is-download-speed-enable=false
+    download-speed-text='↓'
+    is-upload-speed-enable=false
+    upload-speed-text='↑'
+    font-family='Liberation Sans'
+    font-size=' 14'
+    item-separator='     '
+    refresh-interval=2
+    show-percent-sign=false
+    text-color='#888888'
+
+    [org/gnome/shell/extensions/unite]
+    desktop-name-text='UNEXPECTED'
+    extend-left-box=true
+    hide-activities-button='never'
+    hide-window-titlebars='maximized'
+    reduce-panel-spacing=true
+    show-desktop-name=true
+    show-window-buttons='always'
+    window-buttons-placement='right'
+    window-buttons-theme='canta'
+
+    [org/gnome/shell/extensions/user-theme]
+    name='WhiteSur-Dark-yellow-nord'
+
+    [org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+    use-transparent-background=true
+    background-transparency-percent=30
+    use-system-font=false
+    font='JetBrainsMono Nerd Font Mono 12'
+
+    [system/proxy]
+    mode='manual'
+
+    [system/proxy/http]
+    host='192.168.42.129'
+    port=7890
+
+    [system/proxy/https]
+    host='192.168.42.129'
+    port=7890
+
+    [system/proxy/socks]
+    host='192.168.42.129'
+    port=7891
+
+</details><br />
 
 
 ----
