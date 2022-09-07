@@ -464,6 +464,11 @@ sudo systemctl enable gdm.service
 
 下面我们一起来美化 GNOME，打造一个属于我们自己 独一无二的 Arch Linux 🤪
 
+> 删除多余自带应用
+```
+sudo pacman -Rns epiphany       [ WEB 浏览器 ]
+```
+
 > 安装字体
 ```
 sudo pacman -S nerd-fonts-jetbrains-mono    [ 个人比较喜欢的字体 ]
@@ -478,10 +483,13 @@ paru -S gnome-tweaks-git
 > 安装 GNOME 扩展
 ```
 paru -S gnome-shell-extensions-git                      [ GNOME 扩展管理工具 ]
+
 paru -S gnome-shell-extension-dash-to-dock-git          [ GNOME 应用栏 ]
 paru -S gnome-shell-extension-unite-git                 [ GNOME UNITE 扩展 ]
 paru -S gnome-shell-extension-proxy-switcher-git        [ GNOME 系统代理切换工具 ]
 paru -S gnome-shell-extension-system-monitor-git-speed  [ GNOME 性能监控 ]
+
+paru -S gnome-terminal-transparency                     [ 终端透明美化 ]
 ```
 
 > 下载 WhiteSur 主题并解压 根据 GitHub 文档提示进行安装即可
@@ -494,6 +502,83 @@ paru -S gnome-shell-extension-system-monitor-git-speed  [ GNOME 性能监控 ]
 > 使用 Tweaks 定制 GNOME 的外观
 ```
 
+```
+
+> 配置 GNOME
+```
+[ 设置窗口主题 ]
+gsettings set org.gnome.shell.extensions.user-theme name 'WhiteSur-Dark-yellow-nord'
+
+[ 优化桌面交互 ]
+gsettings set org.gnome.desktop.interface enable-hot-corners false
+gsettings set org.gnome.desktop.interface enable-animations false
+gsettings set org.gnome.desktop.interface enable-animations color-scheme 'prefer-dark'
+gsettings set org.gnome.desktop.interface enable-animations cursor-theme 'BreezeX-Dark'
+gsettings set org.gnome.desktop.interface enable-animations icon-theme 'NEX-DARK'
+gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
+gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar 'toggle-shade'
+
+
+[ 优化应用栏 ]
+gsettings set org.gnome.shell.extensions.dash-to-dock apply-custom-theme false
+gsettings set org.gnome.shell.extensions.dash-to-dock autohide false
+gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
+gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts false
+gsettings set org.gnome.shell.extensions.dash-to-dock show-show-apps-button false
+gsettings set org.gnome.shell.extensions.dash-to-dock running-indicator-style 'DASHES'
+gsettings set org.gnome.shell.extensions.dash-to-dock transparency-mode 'FIXED'
+gsettings set org.gnome.shell.extensions.dash-to-dock intellihide-mode 'ALWAYS_ON_TOP'
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
+gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 47
+gsettings set org.gnome.shell.extensions.dash-to-dock custom-theme-shrink true
+gsettings set org.gnome.shell.extensions.dash-to-dock background-opacity 0.0
+
+[ 优化顶栏 ]
+gsettings set org.gnome.shell.extensions.unite window-buttons-placement 'right'
+gsettings set org.gnome.shell.extensions.unite window-buttons-theme 'canta'
+gsettings set org.gnome.shell.extensions.unite show-window-title 'always'
+gsettings set org.gnome.shell.extensions.unite show-desktop-name true
+gsettings set org.gnome.shell.extensions.unite hide-window-titlebars 'maximized'
+gsettings set org.gnome.shell.extensions.unite hide-app-menu-icon false
+gsettings set org.gnome.shell.extensions.unite hide-activities-button 'never'
+gsettings set org.gnome.shell.extensions.unite desktop-name-text 'UNEXPECTED'
+gsettings set org.gnome.shell.extensions.unite enable-titlebar-actions true
+gsettings set org.gnome.shell.extensions.unite show-window-buttons 'always'
+
+[ 设置系统代理 ]
+gsettings set org.gnome.system.proxy mode 'manual'
+gsettings set org.gnome.system.proxy.http host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+gsettings set org.gnome.system.proxy.http port '7890'
+gsettings set org.gnome.system.proxy.https host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+gsettings set org.gnome.system.proxy.https port '7890'
+gsettings set org.gnome.system.proxy.socks host '192.168.42.129'                                                                                                                           ] 18:36 Wed
+gsettings set org.gnome.system.proxy.socks port '7891'
+
+[ 其他 ]
+
+[org/gnome/shell/extensions/simple-system-monitor]
+cpu-usage-text='CPU  -'
+download-speed-text='🔸'
+font-family='System-ui'
+font-size=' 14'
+is-cpu-usage-enable=true
+is-download-speed-enable=true
+is-memory-usage-enable=true
+is-upload-speed-enable=false
+item-separator='      '
+memory-usage-text='MEM  -'
+refresh-interval=1
+show-percent-sign=true
+text-color='#5e5c64'
+upload-speed-text='↑'
+```
+
+
+> 导出 GNOME 设置
+```
+dconf dump / > dconf-settings.ini       [ 导出 ]
+cat dconf-settings.ini | dconf load /   [ 重载 ]
 ```
 
 
@@ -564,7 +649,7 @@ paru -S autojump-git
 
 > 在 [ `~/.config/fish/config.fish` ]  中索引 `autojump` 文件
 ```bash
-source ~/.autojump/share/autojump/autojump.fish
+source /usr/share/autojump/autojump.fish
 ```
 
 <details>
