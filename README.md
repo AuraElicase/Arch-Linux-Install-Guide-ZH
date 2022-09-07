@@ -135,7 +135,7 @@ timedatectl status          [ 检查 ]
 
 > 如果您不放心的话，可以再次输入 [ `fdisk -l` ] 查看分区结果 🙁
 
-<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/lsblk_done.png">
+<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/lsblk-done.png">
 
 > 现在我们对刚刚分出来的区域进行简单处理
 ```
@@ -143,7 +143,7 @@ mkfs.fat -F32 /dev/nvme0n1p1   [ 将 nvme0n1p1 分区分区格式化为 FAT32 �
 mkfs.xfs /dev/nvme0n1p3        [ 将 nvme0n1p3 分区格式化为 XFS 文件系统 用于充当新系统的根目录 ]
 ```
 
-<img height="200" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/format_done.png">
+<img height="180" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/format_done.png">
 
 > 分给交换文件系统的 `nvme0n1p2` 建立交换分区
 ```
@@ -173,7 +173,7 @@ TODO: mount /dev/nvme0n1p1 /mnt/boot/efi     [ 将 EFI 启动目录挂载到新�
 
 > 如果您不放心 可以执行 [ `df -h` ] 检查挂载情况
 
-<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/mount-check.png">
+<img height="150" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/mount-check.png">
 
 现在 我们我们要安装的系统就被挂载到了本机的 `/mnt` 文件夹里了 我们对 `/mnt` 文件夹里做的一切修改 都会反映到新的系统中
 
@@ -503,6 +503,20 @@ sudo systemctl enable gdm.service
 
 执行 `reboot` 重启系统即可看到我们安装的 GNOME 啦 🎉
 
+<details>
+<summary>删除多余的自带软件</summary>
+<br />
+
+> 如果您和我一样有系统洁癖 那么就一起来删一下系统自带的软件吧
+```
+sudo pacman -Rns epiphany       [ WEB 浏览器 ]
+sudo pacman -Rns gedit          [ 记事本 ]
+```
+
+</details><br />
+
+----
+
 
 ### 图形界面美化
 
@@ -510,11 +524,6 @@ sudo systemctl enable gdm.service
 
 下面我们一起来美化 GNOME，打造一个属于我们自己 独一无二的 Arch Linux 🤪
 
-> 删除多余应用
-```
-sudo pacman -Rns epiphany       [ WEB 浏览器 ]
-sudo pacman -Rns gedit          [ 记事本 ]
-```
 
 > 安装字体
 ```
