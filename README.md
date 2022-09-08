@@ -581,6 +581,8 @@ xxx-git     [ 从 GitHub 克隆软件源码到本地编译安装 软件是最新
 ```
 *注意：编译需要一定的时间 视 CPU 性能而定 若环境配置不当 [ 如缺少编译工具 ] 编译大概率会失败*
 
+*不会魔法上网的话最好不要安装 `-git` 除非对 GitHub 访问非常流畅*
+
 ----
 
 > 安装字体
@@ -596,21 +598,22 @@ paru -S gnome-tweaks-git
 
 > 安装 GNOME 扩展
 ```
-paru -S gnome-shell-extensions-git                      [ GNOME 扩展管理工具 ]
+paru -S gnome-shell-extensions-git                   [ GNOME 扩展管理工具 ]
 
-paru -S gnome-shell-extension-dash-to-dock-git          [ GNOME 应用栏 ]
-paru -S gnome-shell-extension-unite-git                 [ GNOME UNITE 扩展 ]
-paru -S gnome-shell-extension-proxy-switcher-git        [ GNOME 系统代理切换工具 ]
-paru -S gnome-shell-extension-system-monitor-git-speed  [ GNOME 性能监控 ]
+paru -S gnome-shell-extension-dash-to-dock-git       [ GNOME 应用栏 ]
+paru -S gnome-shell-extension-unite-git              [ GNOME UNITE 扩展 ]
+paru -S gnome-shell-extension-proxy-switcher-git     [ GNOME 系统代理切换工具 ]
+paru -S gnome-shell-extension-simple-system-monitor  [ GNOME 性能监控 ]
 
-paru -S gnome-terminal-transparency                     [ GNOME 透明终端 ]
+paru -S gnome-terminal-transparency                  [ GNOME 透明终端 ]
 ```
 
 > 下载系统主题 WhiteSur 解压并安装
 ```
 [ https://github.com/vinceliuice/WhiteSur-gtk-theme ]
 
-sudo ./install.sh -t yellow -s 260 -i arch -HD --round -P smaller --nord
+TODO: round 
+./install.sh -t yellow -s 260 -i arch -HD -P smaller && ./install.sh -t yellow -s 260 -i arch -HD -P smaller --nord
 ```
 
 > 下载图标并复制到 [ `~/.icons` ] 文件夹
@@ -840,41 +843,13 @@ cat dconf-settings.ini | dconf load /   [ 载入 GNOME 配置文件 ]
 
 ## 软件安装
 
-Arch 下有很多包管理工具，其中比较流行的有
-```
-pacman      [ Arch 自带包管理工具 不是很全 安装必须使用 sudo 提升权限 ]
-yay         [ Go 语言开发的包管理工具 ]
-paru        [ Rust 开发的包管理工具 ]
-```
-
-这里我们使用 [ `paru` ] 安装与管理软件
-
-> 安装 [ `paru` ]
-```
-sudo pacman -Syyu   [ 让本地 pacman 软件版本数据库与云端同步并更新所有软件 ]
-sudo pacman -S paru [ 使用 pacman 安装 paru ]
-```
-
-> [ `paru` ] 的基本使用
-```
-paru -Syyu      [ 更新本地软件并刷新软件版本数据库 ]
-paru -S xxx     [ 安装 xxx ]
-paru -R xxx     [ 卸载 xxx ]
-```
-
-> 题外话：安装软件时软件后缀带 `-git` 与不带 `-git` 的区别？
-```
-xxx-bin     [ 一般是编译好的二进制文件 下载即可使用 无需自行编译 无法保证是最新的 ]
-xxx-git     [ 从 GitHub 克隆软件源码到本地编译安装 软件是最新版本 可能存在不稳定的情况 ] ```
-```
-*注意：编译需要一定的时间 视 CPU 性能而定 若环境配置不当 [ 如缺少编译工具 ] 编译大概率会失败*
-
 > 常用软件安装
 ```
 [ 系统功能增强 ]
 paru -S exa-git             [ ls   增强 ]
 paru -S bat-git             [ cat  增强 ]
 paru -S ripgrep-git         [ grep 增强 ]
+paru -S tldr-git            [ 精简版 man ]
 
 paru -S translate-shell-git     [ 命令行翻译 ]
 
@@ -1116,7 +1091,7 @@ Classic User Interface      [ Fcitx5 UI 设置 ]
 
 > 安装
 ```
-paru -S sublime-text
+paru -S sublime-text-4
 ```
 
 > 激活
