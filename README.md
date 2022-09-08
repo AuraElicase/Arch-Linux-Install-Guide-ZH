@@ -864,29 +864,38 @@ paru -S tldr-git            [ 精简版 man ]
 paru -S translate-shell-git     [ 命令行翻译 ]
 
 [ 其他 ]
-paru -S tor-browser             [ TOR 浏览器 ]
-paru -S brave-nightly-bin       [ Brave 浏览器 ]
-paru -S termius                 [ SSH 工具 ]
+paru -S brave-nightly-bin        [ Brave 浏览器 ]
+paru -S termius                  [ SSH 工具 ]
 
-paru -S obs-studio              [ OBS ]
-paru -S lyrebird                [ 变声器 ]
+paru -S obs-studio               [ OBS ]
+paru -S mpv-git                  [ 播放器 ]
+paru -S zy-player-bin            [ 在线播放器 ]
+paru -S lyrebird                 [ 变声器 ]
 
-paru -S ristretto               [ 图片查看器 ]
-paru -S nomacs-git              [ 图片编辑工具 ]
+paru -S ristretto                [ 图片查看器 ]
+paru -S nomacs-git               [ 图片编辑工具 ]
 
-paru -S spotify                 [ Spotify ]
-paru -S netease-cloud-music     [ 网抑云音乐 ]
+paru -S spotify                  [ Spotify ]
+paru -S netease-cloud-music      [ 网抑云音乐 ]
+paru -S yesplaymusic             [ 第三方网易云 ]
+paru -S listen1-desktop-appimage [ 全网歌曲播放器 ]
 
-paru -S wechat-uos              [ 微信 ]
-paru -S wemeet-bin              [ 腾讯会议 ]
-paru -S baidunetdisk-bin        [ 百度网盘 ]
-paru -S telegram-desktop-git    [ TELEGRAM ]
+paru -S wechat-uos               [ 微信 ]
+paru -S wemeet-bin               [ 腾讯会议 ]
+paru -S baidunetdisk-bin         [ 百度网盘 ]
 
 paru -S com.tencent.meeting.deepin [ WINE 腾讯会议 ]
 paru -S com.qq.weixin.deepin       [ WINE 微信]
 ```
 
-> 道也者，不可须臾离也；可离，非道也。是故君子戒慎乎其所不睹，恐惧乎其所不闻。莫见乎隐，莫显乎微，**故君子慎其独也**
+> 特殊软件
+```
+paru -S clash                    [ 梯子 ]
+paru -S tor-browser              [ TOR 浏览器 ]
+paru -S telegram-desktop-git     [ TELEGRAM ]
+```
+
+> 道也者 不可须臾离也。可离 非道也。是故君子戒慎乎其所不睹 恐惧乎其所不闻。莫见乎隐 莫显乎微 故君子慎其独也
 
 
 ### Fish Shell
@@ -1202,6 +1211,17 @@ sudo systemctl enable vmware-networks.service
 sudo pacman -S virtualbox-bin
 ```
 
+> 原生内核
+```
+virtualbox-host-modules-arch
+```
+
+> 其他内核
+
+```
+sudo pacman -S linux-zen-headers
+sudo pacman -S virtualbox-host-dkms
+```
 
 ### BurpSuite
 
