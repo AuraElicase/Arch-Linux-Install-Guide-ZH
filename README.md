@@ -200,11 +200,20 @@ TODO: mount /dev/nvme0n1p1 /mnt/boot/efi     [ 将 EFI 启动目录挂载到新�
 
 > 内核版本
 ```
-- Stable     [ 原版的 Linux 内核和模块 ]
-- Longterm   [ 受长期支持的 Linux 内核和模块 ]
-- Hardened   [ 注重安全的 Linux 内核 采用一系列加固补丁以缓解内核和用户空间漏洞 ]
-- Zen Kernel [ 一些内核黑客合作开发的成果 是最适合日常使用的内核 ]
+- Stable      [ 原生的 Linux 内核和模块 ]
+- Longterm    [ 受长期支持的 Linux 内核和模块 最稳定 ]
+- Hardened    [ 注重安全的 Linux 内核 采用一系列加固补丁以缓解内核和用户空间漏洞 ]
+- Zen Kernel  [ 一些内核黑客合作开发的成果 吞吐量与功耗换取性能 适合日常使用 ]
 ```
+
+> 更换内核？
+```
+sudo pacman -S linux-zen linux-zen-headers
+```
+
+更换内核后还需要留意部分应用需要更换为相应的 DKMS [ Dynamic Kernal Module System ] 版本
+
+> DKMS [ Dynamic Kernel Module System ] 可以使内核 升级 / 更换 后自动编译模块 适配新内核
 
 </details><br />
 
@@ -473,7 +482,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 > 我的显卡是 RTX 2080 Ti 所以选择安装以下安装包
 ```
-sudo pacman -S nvidia nvidia-utils lib32-nvidia-utils
+sudo pacman -S nvidia nvidia-utils lib32-nvidia-utils TODO: nvidia-dkms
 ```
 
 驱动安装好之后使用 `reboot` 重启，然后我们就可以开始安装图形化管理器了 🥑
@@ -603,6 +612,7 @@ paru -S gnome-shell-extensions-git                   [ GNOME 扩展管理工具 
 paru -S gnome-shell-extension-dash-to-dock-git       [ GNOME 应用栏 ]
 paru -S gnome-shell-extension-unite-git              [ GNOME UNITE 扩展 ]
 paru -S gnome-shell-extension-proxy-switcher-git     [ GNOME 系统代理切换工具 ]
+paru -S gnome-shell-extension-system-monitor-git     [ GNOME 性能监控 ]
 paru -S gnome-shell-extension-simple-system-monitor  [ GNOME 性能监控 ]
 
 paru -S gnome-terminal-transparency                  [ GNOME 透明终端 ]
@@ -857,7 +867,15 @@ paru -S translate-shell-git     [ 命令行翻译 ]
 paru -S termius                 [ SSH 工具 ]
 paru -S spotify                 [ Spotify ]
 paru -S netease-cloud-music     [ 网抑云音乐 ]
+paru -S baidunetdisk-bin        [ 百度网盘 ]
+paru -S telegram-desktop-git    [ TELEGRAM ]
+paru -S tor-browser             [ TOR 浏览器 ]
+paru -S brave-nightly-bin       [ Brave 浏览器 ]
+
+paru -S com.tencent.meeting.deepin [ 腾讯会议 ]
 ```
+
+> 道也者，不可须臾离也；可离，非道也。是故君子戒慎乎其所不睹，恐惧乎其所不闻。莫见乎隐，莫显乎微，**故君子慎其独也**
 
 
 ### Fish Shell
@@ -998,6 +1016,7 @@ paru -S google-chrome
 
 > 插件推荐
 ```
+[ 插件 ]
 HackBar [ 这个干嘛的不能说 ]
 Vimium  [ 用 VIM 键位浏览网页 效率UPUP ^_^ ]
 AdBlock [ 屏蔽广告小插件 ]
@@ -1011,6 +1030,10 @@ Simple Translate    [ 划词翻译 支持 DeepL API ]
 Proxy SwitchyOmega  [ 快速切换浏览器代理 ]
 
 JavaScript and CSS Beautifier   [ 自动格式化 JS CSS 源码 ]
+
+[ 主题 ]
+Brave
+Pastel Rainbow
 ```
 
 ### Fcitx 5
@@ -1157,6 +1180,15 @@ sudo pacman -S linux-headers
 > 开机启动 VMware 网络服务 [ 不然虚拟机开启可能无法上网 ]
 ```
 sudo systemctl enable vmware-networks.service
+```
+
+### Virtual Box
+
+----
+
+> 安装
+```
+sudo pacman -S virtualbox-bin
 ```
 
 
