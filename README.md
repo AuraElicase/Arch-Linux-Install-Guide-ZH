@@ -88,11 +88,11 @@ timedatectl status          [ 检查 ]
 
 > [ `lsblk` ]
 
-<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/lsblk.png">
+<img height="100" src="./images/lsblk.png">
 
 > [ `fdisk -l` ]
 
-<img height="150" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/fdisk.png">
+<img height="150" src="./images/fdisk.png">
 
 </details><br />
 
@@ -100,7 +100,7 @@ timedatectl status          [ 检查 ]
 
 > 使用 [ `lsblk` ] 查看当前分区状况并确定系统安装的区域 [ `nvme0n1` ]
 
-<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/lsblk.png">
+<img height="100" src="./images/lsblk.png">
 
 这里我的硬盘使用 NVMe 协议 所以 [ `lsblk` ] 命令输出 [ `nvme0n1` ] 如果硬盘是 SATA 协议的可能会看到 [ `/dev/sda` ]
 
@@ -135,7 +135,7 @@ timedatectl status          [ 检查 ]
 
 > 如果您不放心的话，可以再次输入 [ `fdisk -l` ] 查看分区结果 🙁
 
-<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/lsblk-done.png">
+<img height="100" src="./images/lsblk-done.png">
 
 > 现在我们对刚刚分出来的区域进行简单处理
 ```
@@ -143,7 +143,7 @@ mkfs.fat -F32 /dev/nvme0n1p1   [ 将 nvme0n1p1 分区分区格式化为 FAT32 �
 mkfs.xfs /dev/nvme0n1p3        [ 将 nvme0n1p3 分区格式化为 XFS 文件系统 用于充当新系统的根目录 ]
 ```
 
-<img height="180" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/format_done.png">
+<img height="180" src="./images/format_done.png">
 
 > 分给交换文件系统的 `nvme0n1p2` 建立交换分区
 ```
@@ -151,7 +151,7 @@ mkswap /dev/nvme0n1p2          [ 在 nvme0n1p2 分区上建立 SWAP 交换分区
 swapon /dev/nvme0n1p2          [ 启用 nvme0n1p2 分区上建立的 SWAP 交换系统 ]
 ```
 
-<img height="100" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/swap_done.png">
+<img height="100" src="./images/swap_done.png">
 
 现在我们已经拥有一个有着最基本 Linux 分区结构的系统了！🍺
 
@@ -173,7 +173,7 @@ TODO: mount /dev/nvme0n1p1 /mnt/boot/efi     [ 将 EFI 启动目录挂载到新�
 
 > 如果您不放心 可以执行 [ `df -h` ] 检查挂载情况
 
-<img height="150" src="https://github.com/NEX-S/Arch-Linux-Install-Guide-ZH/blob/main/images/mount-check.png">
+<img height="150" src="./images/mount-check.png">
 
 现在 我们我们要安装的系统就被挂载到了本机的 `/mnt` 文件夹里了 我们对 `/mnt` 文件夹里做的一切修改 都会反映到新的系统中
 
